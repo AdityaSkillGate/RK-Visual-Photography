@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 447 404" width="100%" height="100%">
+  <defs>
+    <mask id="rk-monogram-svg-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="447" height="404">
+      <image href="/assets/logo/rk-monogram-mask-crop.png" x="0" y="0" width="447" height="404" />
+    </mask>
+  </defs>
+  <image
+    href="/assets/logo/rk-monogram-gold-crop.png"
+    x="0"
+    y="0"
+    width="447"
+    height="404"
+  />
+</svg>

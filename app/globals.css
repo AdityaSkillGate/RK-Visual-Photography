@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0b0c0e;
+  --foreground: #f7f5f0;
+  --accent-gold: #c5a880;
+  --accent-gold-glow: rgba(212, 175, 55, 0.2);
+  --border-subtle: #232428;
+}
+
+@layer base {
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Accessible Focus-Visible default reset */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Luxury Gold Selection */
+  ::selection {
+    background-color: #c5a880;
+    color: #0b0c0e;
+  }
+
+  /* Custom Luxury Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0b0c0e;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #232428;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c5a880;
+  }
+
+  /* Accessibility: Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #f0e4d0 0%, #c5a880 50%, #9e7f4c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gold-border-glow {
+    border-color: rgba(197, 168, 128, 0.25);
+    box-shadow: 0 0 25px -5px rgba(197, 168, 128, 0.15);
+  }
+
+  /* Centralized Accessible Focus State */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-950;
+  }
+
+  /* Editorial thin border */
+  .border-luxury {
+    border-color: rgba(35, 36, 40, 0.8);
+  }
+
+  .border-luxury-gold {
+    border-color: rgba(197, 168, 128, 0.35);
+  }
+}
