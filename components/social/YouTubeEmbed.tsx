@@ -109,22 +109,29 @@ export default function YouTubeEmbed({
             </div>
           </div>
 
-          {/* Title & External Link */}
-          <div className="absolute bottom-3 inset-x-3 flex items-end justify-between gap-2">
+          {/* Title & External Link Bottom Bar */}
+          <div className="absolute bottom-3 inset-x-3 space-y-2">
             <p className="line-clamp-2 text-xs font-medium text-ivory-100 drop-shadow-md">
               {title || "Cinematic Highlight"}
             </p>
 
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="p-1.5 rounded-full bg-charcoal-900/80 text-sand-300 hover:text-gold-400 transition-colors shrink-0"
-              title="Open directly on YouTube"
-            >
-              <ExternalLink size={12} />
-            </a>
+            <div className="flex items-center justify-between pt-1 border-t border-bronze-border/40">
+              <span className="text-[11px] font-semibold uppercase tracking-editorial text-gold-400">
+                Play Cinema
+              </span>
+
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-sand-300 hover:text-gold-300 transition-colors"
+                title="Open original video on YouTube"
+              >
+                <span>Open Video</span>
+                <ExternalLink size={11} />
+              </a>
+            </div>
           </div>
         </div>
       )}

@@ -583,6 +583,26 @@ export const FALLBACK_SOCIAL_POSTS: SocialPostRow[] = [
     order_index: 3,
     created_at: "2026-01-01T00:00:00Z",
   },
+  {
+    id: "d1000000-0000-0000-0000-000000000004",
+    platform: "youtube",
+    post_url: "https://youtube.com/shorts/qwVldxJuVrU?si=02988bSeeasWySQS",
+    thumbnail_url: "https://img.youtube.com/vi/qwVldxJuVrU/hqdefault.jpg",
+    caption: "Cinematic Wedding Teaser | 4K South Indian Muhurtham",
+    is_featured: true,
+    order_index: 4,
+    created_at: "2026-01-01T00:00:00Z",
+  },
+  {
+    id: "d1000000-0000-0000-0000-000000000005",
+    platform: "youtube",
+    post_url: "https://youtube.com/shorts/FVTUbNG1EPc?si=0M91nnTHMomBsjkl",
+    thumbnail_url: "https://img.youtube.com/vi/FVTUbNG1EPc/hqdefault.jpg",
+    caption: "Shore Temple Sunset Union | Mahabalipuram Cinema",
+    is_featured: true,
+    order_index: 5,
+    created_at: "2026-01-01T00:00:00Z",
+  },
 ];
 
 export const FALLBACK_BLOG_POSTS: BlogPostRow[] = [

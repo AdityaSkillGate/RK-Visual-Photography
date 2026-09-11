@@ -14,7 +14,13 @@ import {
   Share2,
   ArrowUpRight,
 } from "lucide-react";
-import { InstagramIcon, YouTubeIcon, WhatsAppIcon } from "@/components/ui/SocialIcons";
+import {
+  InstagramIcon,
+  YouTubeIcon,
+  WhatsAppIcon,
+  FacebookIcon,
+  GoogleBusinessIcon,
+} from "@/components/ui/SocialIcons";
 
 
 import {
@@ -194,6 +200,12 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                           <InstagramIcon size={15} className="text-pink-400" />
                         ) : link.platform === "youtube" ? (
                           <YouTubeIcon size={15} className="text-red-400" />
+                        ) : link.platform === "whatsapp" ? (
+                          <WhatsAppIcon size={15} className="text-emerald-400" />
+                        ) : link.platform === "facebook" ? (
+                          <FacebookIcon size={15} className="text-blue-400" />
+                        ) : link.platform === "google_business" ? (
+                          <GoogleBusinessIcon size={15} className="text-amber-400" />
                         ) : (
                           <Share2 size={15} className="text-gold-400" />
                         )}

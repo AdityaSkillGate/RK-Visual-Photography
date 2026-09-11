@@ -2,31 +2,27 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Play, ExternalLink, X } from "lucide-react";
-import { InstagramIcon } from "@/components/ui/SocialIcons";
+import { ExternalLink, X, Eye } from "lucide-react";
+import { FacebookIcon } from "@/components/ui/SocialIcons";
 
-interface InstagramReelCardProps {
+interface FacebookPostCardProps {
   url: string;
   caption?: string | null;
   thumbnailUrl?: string | null;
   className?: string;
 }
 
-export default function InstagramReelCard({
+export default function FacebookPostCard({
   url,
   caption,
   thumbnailUrl,
   className = "",
-}: InstagramReelCardProps) {
+}: FacebookPostCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Extract Instagram shortcode
-  const match = url.match(/instagram\.com\/(?:reel|p)\/([a-zA-Z0-9_-]+)/);
-  const shortcode = match ? match[1] : null;
 
   const poster =
     thumbnailUrl ||
-    "/assets/images/image7.png";
+    "/assets/images/image6.png";
 
   return (
     <>
@@ -37,7 +33,7 @@ export default function InstagramReelCard({
         <div className="relative h-full w-full">
           <Image
             src={poster}
-            alt={caption || "Instagram Reel preview"}
+            alt={caption || "Facebook Post preview"}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -48,35 +44,28 @@ export default function InstagramReelCard({
 
           {/* Platform Tag */}
           <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-charcoal-950/80 backdrop-blur-md px-3 py-1 border border-bronze-border/70">
-            <InstagramIcon size={13} className="text-pink-400" />
+            <FacebookIcon size={13} className="text-blue-400" />
             <span className="text-[10px] font-semibold uppercase tracking-wider text-ivory-200">
-              Reel
+              Facebook
             </span>
           </div>
 
-          {/* Handle Tag */}
-          <div className="absolute top-3 right-3 rounded-full bg-charcoal-950/80 backdrop-blur-md px-2.5 py-1 border border-bronze-border/70">
-            <span className="text-[10px] font-mono text-gold-400">
-              @rk_visual_photography
-            </span>
-          </div>
-
-          {/* Center Play / Watch Trigger */}
+          {/* Center View Trigger */}
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
             className="absolute inset-0 flex items-center justify-center cursor-pointer group-hover:scale-105 transition-transform focus:outline-none"
-            aria-label={`Watch ${caption || "Instagram Reel"}`}
+            aria-label={`View ${caption || "Facebook Post"}`}
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-charcoal-950/80 border border-gold-500/60 text-gold-400 shadow-gold-subtle backdrop-blur-md transition-all duration-300 group-hover:bg-gold-500 group-hover:text-charcoal-950">
-              <Play size={22} className="ml-1 fill-current" />
+              <Eye size={22} className="fill-none" />
             </div>
           </button>
 
           {/* Caption & Actions Bottom Bar */}
           <div className="absolute bottom-3 inset-x-3 space-y-2">
             <p className="line-clamp-2 text-xs font-medium text-ivory-100 drop-shadow-md">
-              {caption || "Heirloom wedding highlight on Instagram"}
+              {caption || "Heirloom wedding highlight on Facebook"}
             </p>
 
             <div className="flex items-center justify-between pt-1 border-t border-bronze-border/40">
@@ -85,7 +74,7 @@ export default function InstagramReelCard({
                 onClick={() => setIsModalOpen(true)}
                 className="text-[11px] font-semibold uppercase tracking-editorial text-gold-400 hover:text-gold-300 transition-colors"
               >
-                View Embed
+                View Preview
               </button>
 
               <a
@@ -93,7 +82,7 @@ export default function InstagramReelCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-[11px] font-semibold text-sand-300 hover:text-gold-300 transition-colors"
-                title="Open original post on Instagram"
+                title="Open original post on Facebook"
               >
                 <span>Open Post</span>
                 <ExternalLink size={11} />
@@ -103,7 +92,7 @@ export default function InstagramReelCard({
         </div>
       </div>
 
-      {/* Official Embed Modal Dialog */}
+      {/* Safe Preview Modal */}
       {isModalOpen && (
         <div
           role="dialog"
@@ -118,9 +107,9 @@ export default function InstagramReelCard({
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-bronze-border/50 pb-3">
               <div className="flex items-center gap-2">
-                <InstagramIcon size={18} className="text-pink-400" />
+                <FacebookIcon size={18} className="text-blue-400" />
                 <span className="font-display text-sm font-medium text-ivory-100">
-                  Instagram Highlight
+                  Facebook Post
                 </span>
               </div>
 
@@ -134,31 +123,26 @@ export default function InstagramReelCard({
               </button>
             </div>
 
-            {/* Official Embed Container */}
-            <div className="relative aspect-[9/13] w-full overflow-hidden rounded-2xl border border-bronze-border/60 bg-charcoal-950">
-              {shortcode ? (
-                <iframe
-                  src={`https://www.instagram.com/p/${shortcode}/embed/captioned/`}
-                  title={caption || "Instagram Reel"}
-                  className="h-full w-full border-0"
-                  allowTransparency
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin allow-popups"
-                />
-              ) : (
-                <div className="flex flex-col items-center justify-center h-full p-6 text-center space-y-3">
-                  <InstagramIcon size={40} className="text-sand-600" />
-                  <p className="text-xs text-sand-400">
-                    Direct embed preview is unavailable for this URL. Click below to view the post directly.
-                  </p>
-                </div>
-              )}
+            {/* Poster Preview Container */}
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-bronze-border/60 bg-charcoal-950">
+              <Image
+                src={poster}
+                alt={caption || "Facebook Post"}
+                fill
+                className="object-cover"
+              />
             </div>
+
+            {caption && (
+              <p className="text-xs text-sand-300 leading-relaxed">
+                {caption}
+              </p>
+            )}
 
             {/* Modal Footer Link */}
             <div className="flex items-center justify-between pt-2 border-t border-bronze-border/30">
               <span className="text-[11px] font-mono text-sand-500">
-                @rk_visual_photography
+                RK Visual Photography
               </span>
 
               <a

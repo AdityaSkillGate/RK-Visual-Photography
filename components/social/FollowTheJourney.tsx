@@ -4,8 +4,10 @@ import React, { useState, useMemo } from "react";
 import Container from "@/components/ui/Container";
 import SectionReveal from "@/components/motion/SectionReveal";
 import ImageReveal from "@/components/motion/ImageReveal";
+import ParallaxWrapper from "@/components/motion/ParallaxWrapper";
 import YouTubeEmbed from "./YouTubeEmbed";
 import InstagramReelCard from "./InstagramReelCard";
+import FacebookPostCard from "./FacebookPostCard";
 import type { SocialLinkRow, SocialPostRow } from "@/lib/supabase/queries";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import {
@@ -22,7 +24,13 @@ interface FollowTheJourneyProps {
 }
 
 export default function FollowTheJourney({ posts, links }: FollowTheJourneyProps) {
-  const [filter, setFilter] = useState<"all" | "instagram" | "youtube">("all");
+  const [filter, setFilter] = useState<string>("all");
+
+  const availablePlatforms = useMemo(() => {
+    const platforms = new Set<string>();
+    posts.forEach((p) => platforms.add(p.platform.toLowerCase()));
+    return Array.from(platforms);
+  }, [posts]);
 
   const filteredPosts = useMemo(() => {
     if (filter === "all") return posts;
@@ -32,7 +40,9 @@ export default function FollowTheJourney({ posts, links }: FollowTheJourneyProps
   // Find direct channel links for quick header buttons
   const igLink = links.find((l) => l.platform === "instagram")?.url || "https://www.instagram.com/rk_visual_photography/";
   const ytLink = links.find((l) => l.platform === "youtube")?.url || "https://www.youtube.com/@rkvisualphotography";
+  const fbLink = links.find((l) => l.platform === "facebook")?.url || "https://www.facebook.com/rkvisualphotography";
   const waLink = links.find((l) => l.platform === "whatsapp")?.url || "https://wa.me/919876543210";
+  const gbLink = links.find((l) => l.platform === "google_business")?.url || "https://maps.google.com/?q=RK+Visual+Photography+Tamil+Nadu";
 
   const getChannelIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
@@ -52,11 +62,11 @@ export default function FollowTheJourney({ posts, links }: FollowTheJourneyProps
   };
 
   return (
-    <section id="social" className="relative px-4 sm:px-6 lg:px-8 py-12">
+    <section id="social" className="relative px-4 sm:px-6 lg:px-8 py-16">
       <Container size="wide">
         {/* Section Header */}
         <SectionReveal yOffset={25}>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-bronze-border/60 pb-8 mb-12">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-bronze-border/60 pb-8 mb-12">
             <div className="space-y-3 max-w-2xl">
               <span className="text-overline uppercase tracking-widest text-gold-400 font-semibold block">
                 Visual Feed & Cinema
@@ -69,28 +79,61 @@ export default function FollowTheJourney({ posts, links }: FollowTheJourneyProps
               </p>
             </div>
 
-            {/* Quick Profile Links */}
-            <div className="flex flex-wrap items-center gap-3">
+            {/* Quick Profile Links - All 5 Channels Accessible */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
               <a
                 href={igLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-pink-500/30 bg-charcoal-900 px-4 py-2 text-xs font-semibold uppercase tracking-editorial text-pink-300 hover:border-pink-500/60 hover:bg-pink-950/20 transition-all shadow-sm"
+                className="inline-flex items-center gap-1.5 rounded-full border border-pink-500/30 bg-charcoal-900/90 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-editorial text-pink-300 hover:border-pink-500/60 hover:bg-pink-950/25 transition-all shadow-sm"
               >
-                <InstagramIcon size={14} />
-                <span>@rk_visual_photography</span>
-                <ArrowUpRight size={12} />
+                <InstagramIcon size={13} />
+                <span>Instagram</span>
+                <ArrowUpRight size={11} />
               </a>
 
               <a
                 href={ytLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-charcoal-900 px-4 py-2 text-xs font-semibold uppercase tracking-editorial text-red-300 hover:border-red-500/60 hover:bg-red-950/20 transition-all shadow-sm"
+                className="inline-flex items-center gap-1.5 rounded-full border border-red-500/30 bg-charcoal-900/90 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-editorial text-red-300 hover:border-red-500/60 hover:bg-red-950/25 transition-all shadow-sm"
               >
-                <YouTubeIcon size={14} />
-                <span>YouTube Cinema</span>
-                <ArrowUpRight size={12} />
+                <YouTubeIcon size={13} />
+                <span>YouTube</span>
+                <ArrowUpRight size={11} />
+              </a>
+
+              <a
+                href={fbLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-charcoal-900/90 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-editorial text-blue-300 hover:border-blue-500/60 hover:bg-blue-950/25 transition-all shadow-sm hidden sm:inline-flex"
+              >
+                <FacebookIcon size={13} />
+                <span>Facebook</span>
+                <ArrowUpRight size={11} />
+              </a>
+
+              <a
+                href={waLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-charcoal-900/90 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-editorial text-emerald-300 hover:border-emerald-500/60 hover:bg-emerald-950/25 transition-all shadow-sm"
+              >
+                <WhatsAppIcon size={13} />
+                <span>WhatsApp</span>
+                <ArrowUpRight size={11} />
+              </a>
+
+              <a
+                href={gbLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-charcoal-900/90 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-editorial text-amber-300 hover:border-amber-500/60 hover:bg-amber-950/25 transition-all shadow-sm hidden md:inline-flex"
+              >
+                <GoogleBusinessIcon size={13} />
+                <span>Google Reviews</span>
+                <ArrowUpRight size={11} />
               </a>
             </div>
           </div>
@@ -98,7 +141,7 @@ export default function FollowTheJourney({ posts, links }: FollowTheJourneyProps
 
         {/* Filter Pills */}
         <SectionReveal delay={0.08} yOffset={15}>
-          <div className="flex items-center gap-2 pb-8">
+          <div className="flex flex-wrap items-center gap-2 pb-8">
             <span className="text-[11px] uppercase tracking-wider text-sand-500 mr-2 font-medium">
               Filter:
             </span>
@@ -113,53 +156,92 @@ export default function FollowTheJourney({ posts, links }: FollowTheJourneyProps
             >
               All Curated ({posts.length})
             </button>
-            <button
-              type="button"
-              onClick={() => setFilter("instagram")}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-editorial transition-all ${
-                filter === "instagram"
-                  ? "bg-gold-500 text-charcoal-950 shadow-gold-subtle"
-                  : "border border-bronze-border bg-charcoal-900/60 text-sand-400 hover:text-ivory-100 hover:border-gold-500/40"
-              }`}
-            >
-              Instagram Reels
-            </button>
-            <button
-              type="button"
-              onClick={() => setFilter("youtube")}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-editorial transition-all ${
-                filter === "youtube"
-                  ? "bg-gold-500 text-charcoal-950 shadow-gold-subtle"
-                  : "border border-bronze-border bg-charcoal-900/60 text-sand-400 hover:text-ivory-100 hover:border-gold-500/40"
-              }`}
-            >
-              YouTube Cinema
-            </button>
+
+            {availablePlatforms.includes("instagram") && (
+              <button
+                type="button"
+                onClick={() => setFilter("instagram")}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-editorial transition-all ${
+                  filter === "instagram"
+                    ? "bg-gold-500 text-charcoal-950 shadow-gold-subtle"
+                    : "border border-bronze-border bg-charcoal-900/60 text-sand-400 hover:text-ivory-100 hover:border-gold-500/40"
+                }`}
+              >
+                Instagram Reels
+              </button>
+            )}
+
+            {availablePlatforms.includes("youtube") && (
+              <button
+                type="button"
+                onClick={() => setFilter("youtube")}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-editorial transition-all ${
+                  filter === "youtube"
+                    ? "bg-gold-500 text-charcoal-950 shadow-gold-subtle"
+                    : "border border-bronze-border bg-charcoal-900/60 text-sand-400 hover:text-ivory-100 hover:border-gold-500/40"
+                }`}
+              >
+                YouTube Cinema
+              </button>
+            )}
+
+            {availablePlatforms.includes("facebook") && (
+              <button
+                type="button"
+                onClick={() => setFilter("facebook")}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-editorial transition-all ${
+                  filter === "facebook"
+                    ? "bg-gold-500 text-charcoal-950 shadow-gold-subtle"
+                    : "border border-bronze-border bg-charcoal-900/60 text-sand-400 hover:text-ivory-100 hover:border-gold-500/40"
+                }`}
+              >
+                Facebook Updates
+              </button>
+            )}
           </div>
         </SectionReveal>
 
-        {/* Social Feed Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {filteredPosts.map((post, idx) => (
-            <ImageReveal key={post.id} delay={idx * 0.07}>
-              {post.platform.toLowerCase() === "youtube" ? (
-                <YouTubeEmbed
-                  url={post.post_url}
-                  title={post.caption}
-                  thumbnailUrl={post.thumbnail_url}
-                  isShort={post.post_url.includes("/shorts/")}
-                  className="h-full"
-                />
-              ) : (
-                <InstagramReelCard
-                  url={post.post_url}
-                  caption={post.caption}
-                  thumbnailUrl={post.thumbnail_url}
-                  className="h-full"
-                />
-              )}
-            </ImageReveal>
-          ))}
+        {/* Editorial Social Feed Grid with Subtle Scroll Movement */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-start">
+          {filteredPosts.map((post, idx) => {
+            const isAlternate = idx % 2 === 1;
+            const parallaxSpeed = isAlternate ? -0.04 : 0.05;
+
+            return (
+              <ParallaxWrapper
+                key={post.id}
+                speed={parallaxSpeed}
+                offset={20}
+                className={isAlternate ? "xl:translate-y-4" : ""}
+              >
+                <ImageReveal delay={idx * 0.06}>
+                  {post.platform.toLowerCase() === "youtube" ? (
+                    <YouTubeEmbed
+                      url={post.post_url}
+                      title={post.caption}
+                      thumbnailUrl={post.thumbnail_url}
+                      isShort={post.post_url.includes("/shorts/")}
+                      className="h-full"
+                    />
+                  ) : post.platform.toLowerCase() === "facebook" ? (
+                    <FacebookPostCard
+                      url={post.post_url}
+                      caption={post.caption}
+                      thumbnailUrl={post.thumbnail_url}
+                      className="h-full"
+                    />
+                  ) : (
+                    <InstagramReelCard
+                      url={post.post_url}
+                      caption={post.caption}
+                      thumbnailUrl={post.thumbnail_url}
+                      className="h-full"
+                    />
+                  )}
+                </ImageReveal>
+              </ParallaxWrapper>
+            );
+          })}
         </div>
 
         {/* Connected Channels Bottom Strip */}

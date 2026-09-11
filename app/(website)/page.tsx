@@ -41,25 +41,13 @@ import {
   HelpCircle,
 } from "lucide-react";
 
-function InstagramIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  );
-}
+import {
+  InstagramIcon,
+  YouTubeIcon,
+  FacebookIcon,
+  WhatsAppIcon,
+  GoogleBusinessIcon,
+} from "@/components/ui/SocialIcons";
 
 export const revalidate = 60; // Incremental Static Regeneration
 
@@ -560,6 +548,50 @@ export default async function HomePage() {
                     </a>
                   </MagneticButton>
                 </div>
+
+                {/* Studio Channels in Contact CTA */}
+                {socialLinks.length > 0 && (
+                  <div className="pt-8 border-t border-bronze-border/40 mt-8 max-w-xl mx-auto space-y-3">
+                    <span className="text-[11px] uppercase tracking-widest text-sand-400 font-mono block">
+                      Connect Across Our Studio Channels
+                    </span>
+                    <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+                      {socialLinks
+                        .filter((l) => l.is_active)
+                        .map((link) => {
+                          const icon =
+                            link.platform === "instagram" ? (
+                              <InstagramIcon size={13} className="text-pink-400" />
+                            ) : link.platform === "youtube" ? (
+                              <YouTubeIcon size={13} className="text-red-400" />
+                            ) : link.platform === "whatsapp" ? (
+                              <WhatsAppIcon size={13} className="text-emerald-400" />
+                            ) : link.platform === "facebook" ? (
+                              <FacebookIcon size={13} className="text-blue-400" />
+                            ) : (
+                              <GoogleBusinessIcon size={13} className="text-amber-400" />
+                            );
+
+                          return (
+                            <a
+                              key={link.id}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 rounded-full border border-bronze-border/60 bg-charcoal-950/70 px-3.5 py-1.5 text-xs text-sand-300 hover:border-gold-500/50 hover:text-ivory-100 transition-all shadow-sm group"
+                            >
+                              {icon}
+                              <span>{link.label}</span>
+                              <ArrowUpRight
+                                size={11}
+                                className="text-sand-500 group-hover:text-gold-400 transition-colors"
+                              />
+                            </a>
+                          );
+                        })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </SectionReveal>
