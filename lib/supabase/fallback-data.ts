@@ -580,3 +580,42 @@ export const FALLBACK_SITE_SETTINGS = {
   youtube_url: "https://www.youtube.com/@rkvisualphotography",
   facebook_url: "https://www.facebook.com/rkvisualphotography",
 };
+
+export interface ExperienceMetricItem {
+  id: string;
+  value: string;
+  label: string;
+  description?: string;
+  order_index?: number;
+}
+
+export const FALLBACK_EXPERIENCE_METRICS: ExperienceMetricItem[] = [
+  {
+    id: "media_experience",
+    value: "10+",
+    label: "MEDIA EXPERIENCE",
+    description: "Years documenting timeless romance across South India and worldwide.",
+    order_index: 1,
+  },
+  {
+    id: "weddings_shot",
+    value: "500+",
+    label: "WEDDINGS SHOT",
+    description: "Sacred muhurthams immortalized with fine-art editorial perspective.",
+    order_index: 2,
+  },
+  {
+    id: "events_managed",
+    value: "1200+",
+    label: "EVENTS MANAGED",
+    description: "From intimate dawn rituals to grand multi-day architectural celebrations.",
+    order_index: 3,
+  },
+  {
+    id: "happy_clients",
+    value: "1500+",
+    label: "HAPPY CLIENTS",
+    description: "Heirloom family monographs cherished across generations.",
+    order_index: 4,
+  },
+];

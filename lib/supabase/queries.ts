@@ -11,7 +11,11 @@ import {
   FALLBACK_SOCIAL_POSTS,
   FALLBACK_BLOG_POSTS,
   FALLBACK_SITE_SETTINGS,
+  FALLBACK_EXPERIENCE_METRICS,
+  type ExperienceMetricItem,
 } from "./fallback-data";
+
+export type { ExperienceMetricItem };
 
 export type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
 export type ProjectImageRow = Database["public"]["Tables"]["project_images"]["Row"];
@@ -447,6 +451,90 @@ export async function getSiteSettings(): Promise<typeof FALLBACK_SITE_SETTINGS> 
   } catch (err) {
     console.warn("Fallback served for getSiteSettings:", err);
     return FALLBACK_SITE_SETTINGS;
+  }
+}
+
+/**
+ * Fetches studio experience metrics (Media Experience, Weddings Shot, Events Managed, Happy Clients).
+ * Stored in Supabase site_settings under key "experience_metrics" (or "general.metrics").
+ */
+export async function getExperienceMetrics(): Promise<ExperienceMetricItem[]> {
+  if (!isSupabaseConfigured()) {
+    return FALLBACK_EXPERIENCE_METRICS;
+  }
+
+  try {
+    const supabase = await createClient();
+
+    // 1. Check dedicated key "experience_metrics"
+    const { data: metricsRow } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "experience_metrics")
+      .maybeSingle();
+
+    if (metricsRow?.value) {
+      if (Array.isArray(metricsRow.value)) {
+        return metricsRow.value as unknown as ExperienceMetricItem[];
+      }
+      if (typeof metricsRow.value === "object") {
+        const valObj = metricsRow.value as Record<string, any>;
+        if (Array.isArray(valObj.items)) {
+          return valObj.items as unknown as ExperienceMetricItem[];
+        }
+      }
+    }
+
+    // 2. Fallback: check general settings key for metrics
+    const { data: generalRow } = await supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "general")
+      .maybeSingle();
+
+    if (generalRow?.value && typeof generalRow.value === "object") {
+      const val = generalRow.value as Record<string, any>;
+      if (Array.isArray(val.experience_metrics)) {
+        return val.experience_metrics as unknown as ExperienceMetricItem[];
+      }
+      if (val.media_experience || val.weddings_shot) {
+        return [
+          {
+            id: "media_experience",
+            value: String(val.media_experience || "10+"),
+            label: "MEDIA EXPERIENCE",
+            description: "Years documenting timeless romance across South India and worldwide.",
+            order_index: 1,
+          },
+          {
+            id: "weddings_shot",
+            value: String(val.weddings_shot || "500+"),
+            label: "WEDDINGS SHOT",
+            description: "Sacred muhurthams immortalized with fine-art editorial perspective.",
+            order_index: 2,
+          },
+          {
+            id: "events_managed",
+            value: String(val.events_managed || "1200+"),
+            label: "EVENTS MANAGED",
+            description: "From intimate dawn rituals to grand multi-day architectural celebrations.",
+            order_index: 3,
+          },
+          {
+            id: "happy_clients",
+            value: String(val.happy_clients || "1500+"),
+            label: "HAPPY CLIENTS",
+            description: "Heirloom family monographs cherished across generations.",
+            order_index: 4,
+          },
+        ];
+      }
+    }
+
+    return FALLBACK_EXPERIENCE_METRICS;
+  } catch (err) {
+    console.warn("Fallback served for getExperienceMetrics:", err);
+    return FALLBACK_EXPERIENCE_METRICS;
   }
 }
 

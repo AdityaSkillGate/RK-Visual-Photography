@@ -10,6 +10,7 @@ import {
   getSiteSettings,
   getActiveSocialLinks,
   getFeaturedSocialPosts,
+  getExperienceMetrics,
 } from "@/lib/supabase/queries";
 import FollowTheJourney from "@/components/social/FollowTheJourney";
 import RKImage from "@/components/ui/RKImage";
@@ -26,6 +27,7 @@ import ScrollScaleImage from "@/components/motion/ScrollScaleImage";
 import TextClipReveal from "@/components/motion/TextClipReveal";
 import EditorialMarquee from "@/components/motion/EditorialMarquee";
 import StickyStorySection from "@/components/story/StickyStorySection";
+import ExperienceMetrics from "@/components/sections/ExperienceMetrics";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -96,6 +98,7 @@ export default async function HomePage() {
     settings,
     socialPosts,
     socialLinks,
+    experienceMetrics,
   ] = await Promise.all([
     getFeaturedProjects(),
     getActiveCategories(),
@@ -105,6 +108,7 @@ export default async function HomePage() {
     getSiteSettings(),
     getFeaturedSocialPosts(),
     getActiveSocialLinks(),
+    getExperienceMetrics(),
   ]);
 
   return (
@@ -439,6 +443,11 @@ export default async function HomePage() {
           </SectionReveal>
         </Container>
       </section>
+
+      {/* ========================================================================= */}
+      {/* 7.5 EXPERIENCE METRICS — Editorial Milestones & Track Record */}
+      {/* ========================================================================= */}
+      <ExperienceMetrics metrics={experienceMetrics} />
 
       {/* ========================================================================= */}
       {/* 8. TESTIMONIALS — Editorial Client Quotes */}
