@@ -88,7 +88,7 @@ export default function AdminLoginPage() {
                 htmlFor="email"
                 className="block text-xs font-medium tracking-editorial text-sand-300 uppercase"
               >
-                Admin Email
+                Username or Email
               </label>
               <div className="relative">
                 <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-sand-500">
@@ -97,10 +97,10 @@ export default function AdminLoginPage() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
-                  autoComplete="email"
+                  type="text"
+                  autoComplete="username email"
                   required
-                  placeholder="admin@rkvisual.com"
+                  placeholder="admin or admin@rkvisual.com"
                   className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/80 py-2.5 pl-10 pr-4 text-sm text-ivory-100 placeholder-sand-600 transition-colors focus:border-gold-400 focus:outline-none focus:ring-1 focus:ring-gold-400"
                 />
               </div>

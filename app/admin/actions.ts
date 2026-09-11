@@ -19,12 +19,17 @@ export async function loginAction(
   prevState: AuthActionResult | null,
   formData: FormData
 ): Promise<AuthActionResult> {
-  const email = formData.get("email") as string;
+  let email = (formData.get("email") as string)?.trim() || "";
   const password = formData.get("password") as string;
   const redirectTo = (formData.get("redirectTo") as string) || "/admin";
 
   if (!email || !password) {
-    return { error: "Please provide both email and password." };
+    return { error: "Please provide both username/email and password." };
+  }
+
+  // Support username 'admin' or unqualified usernames
+  if (email.toLowerCase() === "admin" || !email.includes("@")) {
+    email = "admin@rkvisual.com";
   }
 
   if (!isSupabaseConfigured()) {
