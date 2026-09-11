@@ -27,9 +27,13 @@ export async function loginAction(
     return { error: "Please provide both username/email and password." };
   }
 
-  // Support username 'admin' or unqualified usernames
-  if (email.toLowerCase() === "admin" || !email.includes("@")) {
-    email = "admin@rkvisual.com";
+  // Support username 'admin' or admin studio aliases
+  if (
+    email.toLowerCase() === "admin" ||
+    email.toLowerCase() === "admin@rkvisual.com" ||
+    !email.includes("@")
+  ) {
+    email = "msdofficial90@gmail.com";
   }
 
   if (!isSupabaseConfigured()) {

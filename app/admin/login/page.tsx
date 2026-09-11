@@ -100,7 +100,7 @@ export default function AdminLoginPage() {
                   type="text"
                   autoComplete="username email"
                   required
-                  placeholder="admin or admin@rkvisual.com"
+                  placeholder="admin or msdofficial90@gmail.com"
                   className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/80 py-2.5 pl-10 pr-4 text-sm text-ivory-100 placeholder-sand-600 transition-colors focus:border-gold-400 focus:outline-none focus:ring-1 focus:ring-gold-400"
                 />
               </div>
