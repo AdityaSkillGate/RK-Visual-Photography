@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSiteUrl } from "@/lib/seo/url";
 
 interface GenerateMetadataProps {
   title: string;
@@ -13,8 +14,8 @@ export function constructMetadata({
   path = "",
   image = "/assets/logo/logo.png",
 }: GenerateMetadataProps): Metadata {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const canonical = `${siteUrl.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
+  const siteUrl = getSiteUrl();
+  const canonical = `${siteUrl}/${path.replace(/^\//, "")}`;
 
   return {
     title,

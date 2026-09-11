@@ -2,7 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getServiceBySlug, getPublishedProjects } from "@/lib/supabase/queries";
+import {
+  getServiceBySlug,
+  getActiveServices,
+  getPublishedProjects,
+} from "@/lib/supabase/queries";
 import RKImage from "@/components/ui/RKImage";
 import Container from "@/components/ui/Container";
 import SectionReveal from "@/components/motion/SectionReveal";
@@ -27,6 +31,11 @@ import {
 } from "lucide-react";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const services = await getActiveServices();
+  return services.map((service) => ({ slug: service.slug || service.id }));
+}
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;

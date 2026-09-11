@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import type { Database } from "@/types/database";
 
 export interface AuthActionResult {
@@ -27,15 +27,26 @@ export async function loginAction(
     return { error: "Please provide both email and password." };
   }
 
-  const supabase = await createClient();
+  if (!isSupabaseConfigured()) {
+    return {
+      error:
+        "Database is not configured. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your Vercel Environment Variables.",
+    };
+  }
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  try {
+    const supabase = await createClient();
 
-  if (error) {
-    return { error: error.message };
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      return { error: error.message };
+    }
+  } catch (err: any) {
+    return { error: err?.message || "Failed to authenticate." };
   }
 
   revalidatePath("/", "layout");
@@ -46,8 +57,14 @@ export async function loginAction(
  * Signs out the current admin session.
  */
 export async function logoutAction(): Promise<void> {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createClient();
+      await supabase.auth.signOut();
+    } catch {
+      // Ignore
+    }
+  }
   revalidatePath("/", "layout");
   redirect("/admin/login");
 }
@@ -56,21 +73,30 @@ export async function logoutAction(): Promise<void> {
  * Retrieves the currently authenticated admin profile.
  */
 export async function getAdminSession() {
-  const supabase = await createClient();
+  if (!isSupabaseConfigured()) {
+    return null;
+  }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const supabase = await createClient();
 
-  if (!user) return null;
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  const { data } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
+    if (!user) return null;
 
-  const profile = (data as Profile | null) ?? null;
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
 
-  return { user, profile };
+    const profile = (data as Profile | null) ?? null;
+
+    return { user, profile };
+  } catch (err) {
+    console.warn("Could not retrieve admin session:", err);
+    return null;
+  }
 }

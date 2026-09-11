@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { getSiteUrl } from "@/lib/seo/url";
 import {
   getPublishedProjects,
   getActiveServices,
@@ -8,7 +9,7 @@ import {
 export const revalidate = 3600; // Revalidate sitemap hourly
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+  const baseUrl = getSiteUrl();
 
   // 1. Static Core Pages
   const staticRoutes: MetadataRoute.Sitemap = [

@@ -34,15 +34,11 @@ export const metadata = {
   },
 };
 
-interface WorkPageProps {
-  searchParams: Promise<{ category?: string }>;
-}
-
-export default async function WorkPage({ searchParams }: WorkPageProps) {
-  const { category: activeCategorySlug } = await searchParams;
+export default async function WorkPage() {
+  const activeCategorySlug = "all";
 
   const [projects, categories] = await Promise.all([
-    getPublishedProjects(activeCategorySlug),
+    getPublishedProjects(),
     getActiveCategories(),
   ]);
 

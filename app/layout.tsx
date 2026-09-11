@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { getSiteUrl } from "@/lib/seo/url";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -32,9 +33,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "RK Visual Photography" }],
   creator: "RK Visual Photography",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-  ),
+  metadataBase: new URL(getSiteUrl()),
   icons: {
     icon: "/assets/logo/logo.png",
     apple: "/assets/logo/logo.png",

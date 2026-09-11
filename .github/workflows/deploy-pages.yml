@@ -1,0 +1,68 @@
+name: Deploy public site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAGES: "true"
+      NEXT_PUBLIC_SITE_URL: https://adityaskillgate.github.io/RK-Visual-Photography
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Remove server-only routes from Pages build
+        run: |
+          rm -rf app/admin app/api
+          rm -rf components/admin
+          rm -f components/chatbot/RKAssistant.tsx
+          rm -f middleware.ts
+          mv components/chatbot/RKAssistantWrapper.tsx /tmp/RKAssistantWrapper.tsx
+          cp scripts/github-pages-assistant-wrapper.tsx components/chatbot/RKAssistantWrapper.tsx
+          rm -rf 'app/(website)/contact'
+          mkdir -p 'app/(website)/contact'
+          cp scripts/github-pages-contact.tsx 'app/(website)/contact/page.tsx'
+          rm -f app/opengraph-image.tsx
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

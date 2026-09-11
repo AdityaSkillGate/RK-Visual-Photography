@@ -2,7 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getBlogPostBySlug } from "@/lib/supabase/queries";
+import {
+  getBlogPostBySlug,
+  getPublishedBlogPosts,
+} from "@/lib/supabase/queries";
 import RKImage from "@/components/ui/RKImage";
 import Container from "@/components/ui/Container";
 import SectionReveal from "@/components/motion/SectionReveal";
@@ -11,6 +14,11 @@ import MagneticButton from "@/components/motion/MagneticButton";
 import { ArrowLeft, Calendar, Clock, ArrowRight } from "lucide-react";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const posts = await getPublishedBlogPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
 import {
   JsonLd,

@@ -1,10 +1,22 @@
 import path from "path";
 import type { NextConfig } from "next";
 
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+const githubPagesBasePath = "/RK-Visual-Photography";
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  ...(isGithubPages
+    ? {
+        output: "export" as const,
+        trailingSlash: true,
+        basePath: githubPagesBasePath,
+        assetPrefix: `${githubPagesBasePath}/`,
+      }
+    : {}),
   outputFileTracingRoot: path.resolve(__dirname),
   images: {
+    unoptimized: isGithubPages,
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
@@ -38,6 +50,8 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
+    if (isGithubPages) return [];
+
     return [
       {
         source: "/assets/:path*",

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getImageKitAuthParams } from "@/lib/imagekit/server";
 import { getAdminSession } from "@/app/admin/actions";
 
+export const dynamic = "force-dynamic";
+
 /**
  * GET /api/imagekit/auth
  * Generates temporary, signed tokens for direct client-side uploads to ImageKit.

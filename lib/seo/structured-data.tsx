@@ -1,5 +1,6 @@
 import React from "react";
 import type { Database } from "@/types/database";
+import { getSiteUrl } from "@/lib/seo/url";
 
 type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
 type ProjectImageRow = Database["public"]["Tables"]["project_images"]["Row"];
@@ -11,7 +12,7 @@ export interface BreadcrumbItem {
   url: string;
 }
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+const SITE_URL = getSiteUrl();
 
 /**
  * Renders a secure, validated JSON-LD schema script tag.

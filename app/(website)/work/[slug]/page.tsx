@@ -2,7 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getProjectBySlug } from "@/lib/supabase/queries";
+import {
+  getProjectBySlug,
+  getPublishedProjects,
+} from "@/lib/supabase/queries";
 import RKImage from "@/components/ui/RKImage";
 import Container from "@/components/ui/Container";
 import ProjectGalleryGrid from "@/components/gallery/ProjectGalleryGrid";
@@ -12,6 +15,11 @@ import TextReveal from "@/components/motion/TextReveal";
 import { MapPin, Calendar, ArrowLeft, ArrowRight, Camera } from "lucide-react";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const projects = await getPublishedProjects();
+  return projects.map((project) => ({ slug: project.slug }));
+}
 
 import {
   JsonLd,
