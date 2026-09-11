@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "dark" | "ivory";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
@@ -19,6 +19,10 @@ const variantStyles = {
     "border border-bronze-border bg-transparent text-ivory-200 hover:border-gold-500/50 hover:bg-charcoal-900/50 hover:text-ivory-100",
   ghost:
     "bg-transparent text-sand-400 hover:bg-charcoal-900/60 hover:text-gold-300",
+  dark:
+    "bg-charcoal-deep text-ivory-warm hover:bg-charcoal-soft active:bg-black border border-charcoal-800 shadow-md",
+  ivory:
+    "bg-ivory-warm text-charcoal-deep hover:bg-white active:bg-ivory-card border border-ivory-border shadow-sm hover:shadow-md",
 };
 
 const sizeStyles = {

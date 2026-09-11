@@ -102,4 +102,39 @@
   .border-luxury-gold {
     border-color: rgba(197, 168, 128, 0.35);
   }
+
+  /* V2 Alternating Section Rhythm Classes */
+  .section-dark {
+    @apply bg-charcoal-deep text-ivory-warm;
+  }
+
+  .section-ivory {
+    @apply bg-ivory-warm text-ivory-text;
+  }
+
+  .section-champagne {
+    @apply bg-champagne-500 text-ivory-text;
+  }
+
+  /* V2 Hairline Borders */
+  .border-hairline-dark {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .border-hairline-light {
+    border-color: rgba(28, 27, 25, 0.12);
+  }
+
+  /* V2 Light Paper Elevated Card */
+  .card-editorial-light {
+    background-color: #FAF8F5;
+    border: 1px solid #DDD5C5;
+    color: #1C1B19;
+    box-shadow: 0 10px 30px -10px rgba(28, 27, 25, 0.06);
+  }
+
+  /* Focus ring for light sections */
+  .focus-ring-light {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-muted focus-visible:ring-offset-2 focus-visible:ring-offset-ivory-warm;
+  }
 }

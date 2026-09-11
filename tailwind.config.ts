@@ -16,6 +16,8 @@ const config: Config = {
           800: "#1E2026", // Structural borders & dividers
           700: "#2A2D35",
           600: "#3B3F4A",
+          deep: "#141414", // V2 Signature Deep Charcoal
+          soft: "#1D1D1B", // V2 Soft Black
         },
         gold: {
           100: "#FAF4EC",
@@ -26,6 +28,7 @@ const config: Config = {
           600: "#A88B58",
           700: "#826938",
           800: "#5D4924",
+          muted: "#B88A3B", // V2 Restrained Muted Gold
         },
         ivory: {
           50: "#FCFBF9",
@@ -33,6 +36,23 @@ const config: Config = {
           200: "#EAE6DF", // Secondary editorial text
           300: "#DAD4C8",
           400: "#C5BFB2",
+          warm: "#F4F0E8", // V2 Signature Warm Ivory Surface
+          paper: "#FAF8F5", // V2 Crisp Light Canvas
+          card: "#EDE8DD", // V2 Elevated Light Card
+          border: "#DDD5C5", // V2 Hairline Light Border
+          text: "#1C1B19", // V2 High-contrast text on light
+          textMuted: "#635E56",
+        },
+        champagne: {
+          100: "#FAF7F2",
+          200: "#F4EFE6",
+          500: "#E7DDCA", // V2 Signature Champagne
+          700: "#C5B491",
+        },
+        taupe: {
+          300: "#ABA091",
+          500: "#8D806D", // V2 Warm Taupe
+          700: "#625746",
         },
         sand: {
           300: "#C7C4BC",

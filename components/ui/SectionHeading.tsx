@@ -8,6 +8,7 @@ export interface SectionHeadingProps
   description?: React.ReactNode;
   align?: "left" | "center" | "right";
   size?: "default" | "large" | "compact";
+  theme?: "dark" | "light" | "ivory";
   action?: React.ReactNode;
 }
 
@@ -29,10 +30,13 @@ export default function SectionHeading({
   description,
   align = "left",
   size = "default",
+  theme = "dark",
   action,
   className,
   ...props
 }: SectionHeadingProps) {
+  const isLight = theme === "light" || theme === "ivory";
+
   return (
     <div
       className={cn(
@@ -43,22 +47,33 @@ export default function SectionHeading({
       {...props}
     >
       {eyebrow && (
-        <span className="text-overline font-semibold text-gold-400 uppercase tracking-widest">
+        <span
+          className={cn(
+            "text-overline font-semibold uppercase tracking-widest",
+            isLight ? "text-gold-muted font-bold" : "text-gold-400"
+          )}
+        >
           {eyebrow}
         </span>
       )}
 
       <h2
         className={cn(
-          "font-display font-light text-ivory-100 tracking-tight text-balance",
-          titleSizeClasses[size]
+          "font-display font-light tracking-tight text-balance",
+          titleSizeClasses[size],
+          isLight ? "text-charcoal-deep" : "text-ivory-100"
         )}
       >
         {title}
       </h2>
 
       {description && (
-        <p className="font-sans text-sm sm:text-base font-light text-sand-400 leading-relaxed text-balance">
+        <p
+          className={cn(
+            "font-sans text-sm sm:text-base font-light leading-relaxed text-balance",
+            isLight ? "text-taupe-700" : "text-sand-400"
+          )}
+        >
           {description}
         </p>
       )}
