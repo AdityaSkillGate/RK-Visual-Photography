@@ -24,6 +24,8 @@ import MagneticButton from "@/components/motion/MagneticButton";
 import PortfolioHoverCard from "@/components/motion/PortfolioHoverCard";
 import ScrollScaleImage from "@/components/motion/ScrollScaleImage";
 import TextClipReveal from "@/components/motion/TextClipReveal";
+import EditorialMarquee from "@/components/motion/EditorialMarquee";
+import StickyStorySection from "@/components/story/StickyStorySection";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -143,6 +145,17 @@ export default async function HomePage() {
           </SectionReveal>
         </Container>
       </section>
+
+      {/* ========================================================================= */}
+      {/* MARQUEE 1 — Editorial Disciplines & Craft (RTL) */}
+      {/* ========================================================================= */}
+      <EditorialMarquee
+        items={["Weddings", "Candid", "Pre-Weddings", "Portraits", "Events"]}
+        direction="rtl"
+        speed={28}
+        variant="primary"
+        separator="✦"
+      />
 
       {/* ========================================================================= */}
       {/* 4. FEATURED STORIES — Asymmetrical Editorial Story Spreads */}
@@ -372,6 +385,11 @@ export default async function HomePage() {
       </section>
 
       {/* ========================================================================= */}
+      {/* 6.5 STICKY STORYTELLING — Chapter-Based Visual Narratives */}
+      {/* ========================================================================= */}
+      <StickyStorySection />
+
+      {/* ========================================================================= */}
       {/* 7. ABOUT STUDIO SNIPPET — Biography & Vision */}
       {/* ========================================================================= */}
       <section id="about" className="relative px-4 sm:px-6 lg:px-8">
@@ -466,6 +484,17 @@ export default async function HomePage() {
           </SectionReveal>
         </Container>
       </section>
+
+      {/* ========================================================================= */}
+      {/* MARQUEE 2 — Studio Heritage & Geographic Reach (LTR) */}
+      {/* ========================================================================= */}
+      <EditorialMarquee
+        items={["RK Visual Photography", "Tamil Nadu", "India", "Worldwide"]}
+        direction="ltr"
+        speed={34}
+        variant="secondary"
+        separator="•"
+      />
 
       {/* ========================================================================= */}
       {/* 9. SOCIAL SECTION — Follow the Journey (Reels & Cinema Embeds) */}
