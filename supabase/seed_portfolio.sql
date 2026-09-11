@@ -24,7 +24,7 @@ insert into public.projects (
   'Vikram & Deepa — Royal Chettinad Palace Wedding',
   'vikram-deepa-chettinad-palace',
   '93d43c53-1bac-495d-9b23-7a157d91319b',
-  'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1600&auto=format&fit=crop',
+  '/assets/images/image8.png',
   'Karaikudi, Tamil Nadu',
   '2025-11-18',
   'A three-day traditional South Indian royal wedding amidst antique Burma teak pillars, brass lanterns, and silk kanjivaram heirlooms.',
@@ -40,7 +40,7 @@ insert into public.projects (
   'Arun & Meera — Twilight Shore Temple Intimate Union',
   'arun-meera-mahabalipuram-shore',
   '93d43c53-1bac-495d-9b23-7a157d91319b',
-  'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1600&auto=format&fit=crop',
+  '/assets/images/image9.png',
   'Mahabalipuram, Tamil Nadu',
   '2026-01-24',
   'Intimate coastal ceremony overlooking 8th-century monolithic stone temple ruins against the Bay of Bengal horizon.',
@@ -56,7 +56,7 @@ insert into public.projects (
   'Karthik & Ananya — Misty Nilgiri Tea Estate Pre-Wedding',
   'karthik-ananya-nilgiri-tea-estate',
   '98bb3a01-5367-4c2b-8ea7-c290b9ab3a1a',
-  'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop',
+  '/assets/images/image7.png',
   'Ooty & Kotagiri, Tamil Nadu',
   '2026-02-10',
   'Cinematic sunrise editorial session traversing mist-shrouded emerald slopes, vintage colonial verandas, and pine forests.',
@@ -72,7 +72,7 @@ insert into public.projects (
   'Siddharth & Priya — Heritage Courtyard Muhurtham',
   'siddharth-priya-heritage-courtyard',
   '93d43c53-1bac-495d-9b23-7a157d91319b',
-  'https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=1600&auto=format&fit=crop',
+  '/assets/images/image6.png',
   'Madurai, Tamil Nadu',
   '2025-12-05',
   'Sacred Vedic rituals illuminated by bronze oil vilakku lamps, nadaswaram echoes, and temple lotus mandapams.',
@@ -102,11 +102,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000001',
   'a1000000-0000-0000-0000-000000000001',
-  'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1600&auto=format&fit=crop',
-  'Bride in crimson Kanjivaram silk sari adorned with antique temple gold jewelry',
-  'Deepa preparing in the ancestral courtyard at dawn',
+  '/assets/images/image8.png',
+  'Luxury reception stage proposal under crystal chandelier',
+  'Deepa and Vikram reception moment at dusk',
   1600,
-  1067,
+  1066,
   1,
   true,
   true
@@ -114,11 +114,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000002',
   'a1000000-0000-0000-0000-000000000001',
-  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop',
-  'Bridal editorial portrait showing delicate temple jewellery detail',
-  'Intricate emerald and gold maang tikka reflections',
-  1600,
-  1200,
+  '/assets/images/image4.png',
+  'Traditional South Indian ceremony with temple gold jewelry',
+  'Sacred ritual portrait in handwoven silk',
+  1280,
+  768,
   2,
   false,
   true
@@ -126,11 +126,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000003',
   'a1000000-0000-0000-0000-000000000001',
-  'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop',
-  'Couple exchanging garlands under floral mandap',
-  'The sacred Muhurtham exchange at sunrise',
+  '/assets/images/image5.png',
+  'Royal blue silk and tailored suit reception portrait',
+  'Regal couple portrait under heritage architectural lanterns',
   1600,
-  1067,
+  1066,
   3,
   false,
   false
@@ -138,11 +138,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000004',
   'a1000000-0000-0000-0000-000000000001',
-  'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=1600&auto=format&fit=crop',
-  'Evening reception couple portrait under Chettinad palace colonnade',
-  'Twilight stroll through the carved granite corridors',
+  '/assets/images/image6.png',
+  'Crimson Kanchipuram silk bridal moments',
+  'Serene bridal preparation portrait with floral backdrop',
+  1200,
   1600,
-  1067,
   4,
   false,
   true
@@ -151,11 +151,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000005',
   'a1000000-0000-0000-0000-000000000002',
-  'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1600&auto=format&fit=crop',
-  'Arun and Meera against the golden hour ocean breeze in Mahabalipuram',
-  'Sea mist and twilight warmth along the Bay of Bengal',
+  '/assets/images/image9.png',
+  'Coastal sunset silhouette in flowing crimson gown',
+  'Sea breeze and evening radiance along Mahabalipuram shore',
   1600,
-  1067,
+  1066,
   1,
   true,
   true
@@ -163,11 +163,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000006',
   'a1000000-0000-0000-0000-000000000002',
-  'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=1600&auto=format&fit=crop',
-  'Sacred fire homam rituals with flower petals',
-  'Agni rituals accompanied by ancient chanting',
-  1600,
-  1067,
+  '/assets/images/image.png',
+  'Golden hour sunset couple silhouette',
+  'Couple framed against setting sun',
+  1280,
+  853,
   2,
   false,
   false
@@ -175,11 +175,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000007',
   'a1000000-0000-0000-0000-000000000002',
-  'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1600&auto=format&fit=crop',
-  'Candlelit dinner setup along the seashore',
-  'Minimalist beach reception with soft amber lanterns',
-  1600,
-  1067,
+  '/assets/images/image10.png',
+  'Tranquil evening backwater boat journey',
+  'Scenic water reflection pre-wedding portrait',
+  1280,
+  853,
   3,
   false,
   true
@@ -188,11 +188,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000008',
   'a1000000-0000-0000-0000-000000000003',
-  'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop',
-  'Couple standing atop mist-covered Nilgiri tea hill slope',
-  'Morning mist rising over Kotagiri tea estates',
-  1600,
-  1067,
+  '/assets/images/image7.png',
+  'Highway journey on Royal Enfield motorcycle at sunset',
+  'Road trip romance against mountain twilight',
+  1280,
+  853,
   1,
   true,
   true
@@ -200,11 +200,11 @@ insert into public.project_images (
 (
   'b1000000-0000-0000-0000-000000000009',
   'a1000000-0000-0000-0000-000000000003',
-  'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1600&auto=format&fit=crop',
-  'Candid walking shot through towering eucalyptus trees',
-  'Deep into the pine trails of Ooty',
-  1600,
-  1067,
+  '/assets/images/image.png',
+  'Sun-drenched horizon romance',
+  'Atmospheric golden hour portrait',
+  1280,
+  853,
   2,
   false,
   false
@@ -229,7 +229,7 @@ insert into public.services (
   'luxury-wedding-documentation',
   'Multi-day comprehensive editorial coverage crafted with museum-grade artistic direction.',
   'Our signature wedding experience. Designed for couples seeking thoughtful, unobtrusive documentation of their celebrations. Includes pre-wedding conceptual meetings, multi-day coverage, lead artist direction, full-resolution heirloom archives, and handcrafted Italian leather albums.',
-  'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
+  '/assets/images/image5.png',
   1,
   true,
   '["Lead photographer & dedicated cinematography crew", "Comprehensive multi-day coverage (Sangeet, Muhurtham, Reception)", "Hand-curated high-resolution digital master gallery", "Fine-art leather bound bespoke wedding heirloom album", "Drone aerial documentation where permitted", "Private online cloud delivery & print copyright"]'::jsonb
@@ -240,7 +240,7 @@ insert into public.services (
   'pre-wedding-destination-sessions',
   'Editorial romance stories staged in cinematic landscapes across South India and beyond.',
   'A relaxed, unhurried two-day destination session where we capture your authentic connection against dramatic architectural ruins, ocean cliffs, or high-altitude mountain forests. We assist with styling, timing the natural light, and mood direction.',
-  'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
+  '/assets/images/image9.png',
   2,
   true,
   '["Two-day relaxed destination location shooting", "Creative wardrobe styling consultation", "High-density editorial portrait retouching", "Teaser preview delivered within 72 hours", "4K cinematic story reel for invitations"]'::jsonb
@@ -251,7 +251,7 @@ insert into public.services (
   'fine-art-editorial-portraits',
   'Intimate solo, maternity, and couple fine-art portraiture exploring chiaroscuro light.',
   'Commissioned studio or on-location portraiture celebrating life milestones. Drawing inspiration from classic oil paintings, our portraits focus on sculptural lighting, rich shadow depth, and timeless emotional stillness.',
-  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop',
+  '/assets/images/image6.png',
   3,
   true,
   '["Studio chiaroscuro or environmental location", "Artistic lighting and pose direction", "Archival fine-art cotton rag prints included", "Personal online proofing gallery", "High-end bespoke skin & tone retouching"]'::jsonb
@@ -262,7 +262,7 @@ insert into public.services (
   'cinematic-wedding-films',
   'Atmospheric motion portraits and documentary films cut to evocative original scores.',
   'Cinematography that mirrors the aesthetic of cinema. We focus on spoken family vows, ambient sacred temple sounds, and slow cinematic motion captured on cinema-grade cameras with vintage prime lenses.',
-  'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=1200&auto=format&fit=crop',
+  '/assets/images/image10.png',
   4,
   true,
   '["4K Ultra HD multi-camera cinema coverage", "High-fidelity binaural audio recording of rituals", "3 to 5-minute flagship cinematic highlight film", "Full-length ceremony & speeches feature archive", "Master color grading with filmic emulation"]'::jsonb
@@ -342,7 +342,7 @@ insert into public.blog_posts (
 Rather than imposing artificial flash or disruptive posing during sacred rituals like the Kanyadaanam or the tying of the Thaali, our studio adopts an unobtrusive, documentary stance. We embrace available natural light filtering through traditional central open courtyards (Muttam) to sculpt authentic emotional portraits.
 
 When documenting wedding heirlooms, we pay deliberate homage to generational treasures—from grandmother’s antique temple necklaces to the gold zari borders woven on vintage handlooms in Kanchipuram. These are not merely accessories; they are tactile vessels of heritage.',
-  'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1600&auto=format&fit=crop',
+  '/assets/images/image4.png',
   array['Heritage', 'Weddings', 'Philosophy', 'Tamil Nadu'],
   true,
   '2026-01-15 10:00:00+00'
@@ -357,7 +357,7 @@ When documenting wedding heirlooms, we pay deliberate homage to generational tre
 In Tamil Nadu, the thirty minutes immediately preceding sunset and following sunrise possess an ethereal clarity. The low sun angle creates elongated, flattering shadows that accentuate facial bone structure while enveloping subjects in a natural golden halo.
 
 When shooting in diverse landscapes—be it the granite shore temples of Mahabalipuram or the high-altitude cloud cover of Kodaikanal—we plan every session around the sun’s exact arc. By balancing ambient sky tones with subtle negative fill, we create imagery that requires no ephemeral trendy filters, ensuring your portraits remain breathtaking fifty years from today.',
-  'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1600&auto=format&fit=crop',
+  '/assets/images/image.png',
   array['Technique', 'Portraits', 'Light', 'Editorial'],
   true,
   '2026-02-01 11:30:00+00'

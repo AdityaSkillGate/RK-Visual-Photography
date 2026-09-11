@@ -25,7 +25,7 @@ values
     'd1000000-0000-0000-0000-000000000001',
     'instagram',
     'https://www.instagram.com/reel/C8et_o8hNk1/',
-    'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop',
+    '/assets/images/image4.png',
     'Sacred Muhurtham Exchange & Royal Kanjivaram Heirlooms',
     true,
     1
@@ -34,7 +34,7 @@ values
     'd1000000-0000-0000-0000-000000000002',
     'instagram',
     'https://www.instagram.com/reel/DCZQ5h5OR1O/',
-    'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop',
+    '/assets/images/image7.png',
     'Twilight Temple Reflections & Heirloom Silk Portraits',
     true,
     2
@@ -43,7 +43,7 @@ values
     'd1000000-0000-0000-0000-000000000003',
     'instagram',
     'https://www.instagram.com/reel/DcLkIHbB_ig/',
-    'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop',
+    '/assets/images/image9.png',
     'Intimate Pre-Wedding Moments Under Ancient Banyan Canopies',
     true,
     3

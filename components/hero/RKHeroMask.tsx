@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { Sparkles, Maximize2, Minimize2, MapPin } from "lucide-react";
+import { SECTION_ASSETS } from "@/lib/assets/studio-imagery";
 
 interface RKHeroMaskProps {
   imageUrl?: string;
@@ -13,10 +14,10 @@ interface RKHeroMaskProps {
 }
 
 export default function RKHeroMask({
-  imageUrl = "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1600&auto=format&fit=crop",
-  altText = "Fine-art South Indian wedding ceremony documented by RK Visual",
-  location = "Karaikudi, Tamil Nadu",
-  title = "Royal Chettinad Palace",
+  imageUrl = SECTION_ASSETS.rkMask.monogramPhoto.src,
+  altText = SECTION_ASSETS.rkMask.altText,
+  location = SECTION_ASSETS.rkMask.location,
+  title = SECTION_ASSETS.rkMask.title,
 }: RKHeroMaskProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const maskLayerRef = useRef<HTMLDivElement>(null);

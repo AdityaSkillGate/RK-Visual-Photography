@@ -104,8 +104,8 @@ export default function AboutPage() {
                 <ImageReveal delay={0.15}>
                   <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border border-bronze-border/80 shadow-2xl bg-charcoal-900">
                     <RKImage
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop"
-                      alt="Lead Artist & Creative Director — RK Visual"
+                      src="/assets/images/image6.png"
+                      alt="Creative Director & Principal Artist — RK Visual Photography"
                       preset="editorial"
                       className="h-full w-full object-cover"
                     />
@@ -237,8 +237,8 @@ export default function AboutPage() {
                   <ImageReveal delay={0.1}>
                     <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-bronze-border/60 bg-charcoal-900">
                       <RKImage
-                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop"
-                        alt="Chettinad heritage wedding details"
+                        src="/assets/images/image4.png"
+                        alt="Heirloom gold temple jewellery & heritage South Indian ritual"
                         preset="card"
                         className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                       />
@@ -247,8 +247,8 @@ export default function AboutPage() {
                   <ImageReveal delay={0.2}>
                     <div className="relative aspect-square overflow-hidden rounded-2xl border border-bronze-border/60 bg-charcoal-900">
                       <RKImage
-                        src="https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=800&auto=format&fit=crop"
-                        alt="Traditional Tamil Muhurtham ritual"
+                        src="/assets/images/image8.png"
+                        alt="Grand chandelier stage reverence & proposal"
                         preset="card"
                         className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                       />
@@ -260,8 +260,8 @@ export default function AboutPage() {
                   <ImageReveal delay={0.15}>
                     <div className="relative aspect-square overflow-hidden rounded-2xl border border-bronze-border/60 bg-charcoal-900">
                       <RKImage
-                        src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop"
-                        alt="Seaside temple coastal twilight"
+                        src="/assets/images/image10.png"
+                        alt="Serene traditional lake boat ride & heritage couple"
                         preset="card"
                         className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                       />
@@ -270,8 +270,8 @@ export default function AboutPage() {
                   <ImageReveal delay={0.25}>
                     <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-bronze-border/60 bg-charcoal-900">
                       <RKImage
-                        src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop"
-                        alt="Misty tea gardens of Nilgiris"
+                        src="/assets/images/image7.png"
+                        alt="Sunset highway journey on Royal Enfield bullet"
                         preset="card"
                         className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                       />

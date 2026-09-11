@@ -299,8 +299,7 @@ export default function RKIntroAnimation({
           <div
             ref={photoLayerRef}
             style={{
-              backgroundImage:
-                "url(https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1600&auto=format&fit=crop)",
+              backgroundImage: "url(/assets/images/image8.png)",
               backgroundSize: "cover",
               backgroundPosition: "center 40%",
             }}

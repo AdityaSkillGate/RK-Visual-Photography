@@ -26,7 +26,7 @@ export default function InstagramReelCard({
 
   const poster =
     thumbnailUrl ||
-    "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop";
+    "/assets/images/image7.png";
 
   return (
     <>

@@ -32,7 +32,7 @@ export default function YouTubeEmbed({
     thumbnailUrl ||
     (videoId
       ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
-      : "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop");
+      : "/assets/images/image10.png");
 
   if (!videoId) {
     // Fallback if URL is irregular

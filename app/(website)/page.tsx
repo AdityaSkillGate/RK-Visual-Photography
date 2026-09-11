@@ -15,6 +15,7 @@ import FollowTheJourney from "@/components/social/FollowTheJourney";
 import RKImage from "@/components/ui/RKImage";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
+import { SECTION_ASSETS } from "@/lib/assets/studio-imagery";
 import RKIntroAnimation from "@/components/animation/RKIntroAnimation";
 import ReplayIntroButton from "@/components/animation/ReplayIntroButton";
 import RKHeroMask from "@/components/hero/RKHeroMask";
@@ -175,7 +176,7 @@ export default async function HomePage() {
                 <RKHeroMask
                   imageUrl={
                     featuredProjects[0]?.cover_image_url ||
-                    "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1600&auto=format&fit=crop"
+                    SECTION_ASSETS.hero.lead.src
                   }
                   title={featuredProjects[0]?.title || "Royal Chettinad Palace Heritage"}
                   location={featuredProjects[0]?.location || "Karaikudi, Tamil Nadu"}
@@ -453,8 +454,8 @@ export default async function HomePage() {
               <div className="lg:col-span-5 relative aspect-[4/5] rounded-2xl overflow-hidden border border-bronze-border shadow-xl">
                 <ImageReveal delay={0.15} className="h-full w-full">
                   <RKImage
-                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop"
-                    alt="RK Visual Lead Photographer"
+                    src={SECTION_ASSETS.about.leadArtist.src}
+                    alt={SECTION_ASSETS.about.leadArtist.alt}
                     fill
                     className="object-cover"
                   />
@@ -595,7 +596,17 @@ export default async function HomePage() {
       <section id="inquire" className="relative px-4 sm:px-6 lg:px-8">
         <Container size="wide">
           <SectionReveal yOffset={30}>
-            <div className="relative overflow-hidden rounded-3xl border border-bronze-border/80 bg-gradient-to-b from-charcoal-900/90 to-charcoal-950 p-10 sm:p-16 lg:p-20 text-center shadow-2xl">
+            <div className="relative overflow-hidden rounded-3xl border border-bronze-border/80 bg-gradient-to-b from-charcoal-900/95 to-charcoal-950 p-10 sm:p-16 lg:p-20 text-center shadow-2xl">
+              {/* Atmospheric Background Studio Photograph */}
+              <div className="pointer-events-none absolute inset-0 opacity-15 mix-blend-luminosity">
+                <RKImage
+                  src={SECTION_ASSETS.cta.background.src}
+                  alt={SECTION_ASSETS.cta.background.alt}
+                  fill
+                  className="object-cover object-center"
+                />
+              </div>
+
               {/* Subtle Antique Gold Ambient Glow */}
               <div
                 className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-25"
