@@ -393,8 +393,8 @@ export default function ChatbotManager({
     <div className="space-y-6">
       {/* Top Header */}
       <AdminPageHeader
-        title="RK Assistant & Knowledge Base"
-        description="Curate database-driven FAQ answers, wedding planning guidance, and rapid contact actions for the public assistant."
+        title="Ask RK Assistant & Knowledge Base"
+        description="Curate verified database-driven FAQ answers, wedding planning guidance, and rapid contact actions for the Ask RK assistant."
         badge={
           <Badge variant="gold" size="sm">
             {questions.filter((q) => q.is_active).length} Active FAQs

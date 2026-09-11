@@ -13,6 +13,7 @@ import {
   getExperienceMetrics,
 } from "@/lib/supabase/queries";
 import FollowTheJourney from "@/components/social/FollowTheJourney";
+import AskRKTriggerButton from "@/components/chatbot/AskRKTriggerButton";
 import RKImage from "@/components/ui/RKImage";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
@@ -482,6 +483,9 @@ export default async function HomePage() {
                 </details>
               ))}
             </div>
+
+            {/* Ask RK Interactive Trigger Banner */}
+            <AskRKTriggerButton className="mt-8" />
           </SectionReveal>
         </Container>
       </section>
