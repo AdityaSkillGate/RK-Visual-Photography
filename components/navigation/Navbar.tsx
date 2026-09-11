@@ -17,9 +17,34 @@ export const NAV_LINKS = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {
+    // Only homepage coordinates with the intro sequence on first session visit
+    const isHomepage = pathname === "/";
+    if (isHomepage && typeof window !== "undefined") {
+      const alreadySeen = sessionStorage.getItem("rk_intro_seen_v2") === "true";
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!alreadySeen && !prefersReducedMotion) {
+        setIsVisible(false);
+      }
+    } else {
+      setIsVisible(true);
+    }
+
+    const handleReveal = () => {
+      setIsVisible(true);
+    };
+
+    window.addEventListener("rk-reveal-navbar", handleReveal);
+
+    // Failsafe to ensure navbar is always revealed
+    const failsafe = setTimeout(() => {
+      setIsVisible(true);
+    }, 2600);
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
     };
@@ -27,12 +52,18 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("rk-reveal-navbar", handleReveal);
+      clearTimeout(failsafe);
+    };
+  }, [pathname]);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+      } ${
         isScrolled ? "py-2 sm:py-2.5" : "py-4 sm:py-5"
       }`}
     >

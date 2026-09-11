@@ -16,14 +16,11 @@ import RKImage from "@/components/ui/RKImage";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import { SECTION_ASSETS } from "@/lib/assets/studio-imagery";
-import RKIntroAnimation from "@/components/animation/RKIntroAnimation";
-import ReplayIntroButton from "@/components/animation/ReplayIntroButton";
-import RKHeroMask from "@/components/hero/RKHeroMask";
+import HeroExperience2 from "@/components/hero/HeroExperience2";
 import SectionReveal from "@/components/motion/SectionReveal";
 import TextReveal from "@/components/motion/TextReveal";
 import ImageReveal from "@/components/motion/ImageReveal";
 import MagneticButton from "@/components/motion/MagneticButton";
-import ParallaxWrapper from "@/components/motion/ParallaxWrapper";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -106,92 +103,21 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="space-y-24 sm:space-y-32 lg:space-y-40 pb-24">
+    <>
       <JsonLd data={getWebSiteSchema()} />
-      {/* Signature Cinematic Opening Intro Experience */}
-      <RKIntroAnimation />
-
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION — Editorial Typography & Signature RK Mask Aperture */}
+      {/* 1. HERO EXPERIENCE 2.0 — Integrated 10-Step Intro & Asynchronous Multi-Layer Hero */}
       {/* ========================================================================= */}
-      <section id="hero" className="relative px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4">
-        <Container size="wide">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-            {/* Typography Column */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Studio Presence & Replay Eyebrow */}
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-charcoal-900/60 px-3.5 py-1 text-[10px] sm:text-xs uppercase tracking-widest text-gold-400 backdrop-blur-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold-400 animate-pulse" />
-                  <span>Tamil Nadu, India • Available Worldwide</span>
-                </div>
-                <ReplayIntroButton />
-              </div>
+      <HeroExperience2
+        featuredProjects={featuredProjects}
+        settings={settings}
+      />
 
-              <TextReveal delay={0.05} yOffset={15}>
-                <span className="font-mono text-xs uppercase tracking-[0.25em] text-gold-400/90 font-semibold block">
-                  Fine-Art &amp; Heritage Photography
-                </span>
-              </TextReveal>
-
-              <TextReveal delay={0.15} yOffset={25}>
-                <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.2rem] font-light leading-[1.08] text-ivory-100 tracking-tightest">
-                  Capturing Stories <br />
-                  That Last <span className="italic font-normal text-gold-300">Beyond</span> <br />
-                  The Moment.
-                </h1>
-              </TextReveal>
-
-              <TextReveal delay={0.25} yOffset={20}>
-                <p className="max-w-xl text-sm sm:text-base text-sand-300 font-light leading-relaxed pt-2">
-                  We craft museum-grade, emotionally resonant wedding documentation and editorial portraiture steeped in the sacred antiquity, intimate moments, and natural light of South India.
-                </p>
-              </TextReveal>
-
-              <div className="flex flex-wrap items-center gap-4 pt-4">
-                <MagneticButton strength={0.25}>
-                  <Link
-                    href="/work"
-                    className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-7 py-3 text-xs font-semibold uppercase tracking-editorial text-charcoal-950 transition-all hover:bg-gold-400 shadow-gold-subtle"
-                  >
-                    <span>Selected Work</span>
-                    <ArrowRight size={14} />
-                  </Link>
-                </MagneticButton>
-
-                <MagneticButton strength={0.2}>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-bronze-border bg-charcoal-900/80 px-6 py-3 text-xs font-medium uppercase tracking-editorial text-sand-300 hover:border-gold-500/40 hover:text-ivory-100 transition-colors"
-                  >
-                    <span>Reserve Your Date</span>
-                  </Link>
-                </MagneticButton>
-              </div>
-            </div>
-
-            {/* Asymmetrical Lead Hero Image with Signature RK Mask Treatment & Parallax */}
-            <div className="lg:col-span-5">
-              <ParallaxWrapper speed={0.15} offset={35}>
-                <RKHeroMask
-                  imageUrl={
-                    featuredProjects[0]?.cover_image_url ||
-                    SECTION_ASSETS.hero.lead.src
-                  }
-                  title={featuredProjects[0]?.title || "Royal Chettinad Palace Heritage"}
-                  location={featuredProjects[0]?.location || "Karaikudi, Tamil Nadu"}
-                  altText="Signature RK Mask & fine-art South Indian wedding ceremony"
-                />
-              </ParallaxWrapper>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 3. BRAND STATEMENT — Fine-Art Manifesto */}
-      {/* ========================================================================= */}
-      <section id="manifesto" className="relative px-6 text-center">
+      <div className="space-y-24 sm:space-y-32 lg:space-y-40 pb-24 mt-8 sm:mt-12 lg:mt-16">
+        {/* ========================================================================= */}
+        {/* 3. BRAND STATEMENT — Fine-Art Manifesto */}
+        {/* ========================================================================= */}
+        <section id="manifesto" className="relative px-6 text-center">
         <Container size="narrow">
           <SectionReveal yOffset={25}>
             <div className="space-y-6">
@@ -659,6 +585,7 @@ export default async function HomePage() {
       </section>
 
       {/* 12. Footer is rendered via app/(website)/layout.tsx */}
-    </div>
+      </div>
+    </>
   );
 }

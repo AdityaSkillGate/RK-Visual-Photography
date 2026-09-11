@@ -136,7 +136,7 @@ export default function RKHeroMask({
   return (
     <div
       ref={containerRef}
-      className="relative aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4] w-full overflow-hidden rounded-3xl border border-bronze-border/70 bg-charcoal-900 shadow-2xl group select-none"
+      className="relative aspect-[4/5] w-full max-w-[430px] max-h-[510px] mx-auto overflow-hidden rounded-3xl border border-bronze-border/70 bg-charcoal-900 shadow-2xl group select-none"
     >
       {/* 1. Underlying Full High-Resolution Photograph (revealed on scroll or expand) */}
       <div
@@ -156,6 +156,15 @@ export default function RKHeroMask({
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-charcoal-950/30" />
       </div>
 
+      {/* Embedded SVG Mask Definition for SVG specification compatibility */}
+      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+        <defs>
+          <mask id="rk-brand-svg-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="447" height="404">
+            <image href="/assets/logo/rk-monogram-mask-crop.png" x="0" y="0" width="447" height="404" />
+          </mask>
+        </defs>
+      </svg>
+
       {/* 2. Signature RK Mask Aperture Treatment */}
       <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-10 pointer-events-none">
         <div
@@ -163,6 +172,7 @@ export default function RKHeroMask({
           style={{
             WebkitMaskImage: "url(/assets/logo/rk-monogram-mask-crop.png)",
             maskImage: "url(/assets/logo/rk-monogram-mask-crop.png)",
+            mask: "url(#rk-brand-svg-mask)",
             WebkitMaskSize: "contain",
             maskSize: "contain",
             WebkitMaskRepeat: "no-repeat",
