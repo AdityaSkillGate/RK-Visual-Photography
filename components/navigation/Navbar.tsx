@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -18,6 +18,8 @@ export const NAV_LINKS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -25,7 +27,9 @@ export default function Navbar() {
     const isHomepage = pathname === "/";
     if (isHomepage && typeof window !== "undefined") {
       const alreadySeen = sessionStorage.getItem("rk_intro_seen_v2") === "true";
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
       if (!alreadySeen && !prefersReducedMotion) {
         setIsVisible(false);
@@ -45,8 +49,26 @@ export default function Navbar() {
       setIsVisible(true);
     }, 2600);
 
+    // Directional smart scroll handler
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 40);
+
+      // Smart hide on fast downward scroll, reveal on upward scroll
+      if (currentScrollY > 160) {
+        if (currentScrollY > lastScrollY.current + 8) {
+          // Scrolling down -> hide navbar to expand photography viewport
+          setIsHeaderHidden(true);
+        } else if (currentScrollY < lastScrollY.current - 6) {
+          // Scrolling up -> instantly reveal navbar for intuitive navigation
+          setIsHeaderHidden(false);
+        }
+      } else {
+        // Near top -> always visible
+        setIsHeaderHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -61,17 +83,19 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
-      } ${
-        isScrolled ? "py-2 sm:py-2.5" : "py-4 sm:py-5"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out will-change-transform ${
+        !isVisible
+          ? "opacity-0 -translate-y-6 pointer-events-none"
+          : isHeaderHidden
+          ? "opacity-0 -translate-y-full pointer-events-none"
+          : "opacity-100 translate-y-0"
+      } ${isScrolled ? "py-2 sm:py-2.5" : "py-3.5 sm:py-4"}`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div
           className={`flex items-center justify-between rounded-full border transition-all duration-500 ease-out ${
             isScrolled
-              ? "border-gold-500/30 bg-charcoal-950/90 px-4 sm:px-6 py-2 sm:py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl"
+              ? "border-gold-500/35 bg-charcoal-950/92 px-4 sm:px-5 py-2 sm:py-2.5 shadow-[0_12px_36px_rgba(0,0,0,0.85)] backdrop-blur-2xl"
               : "border-bronze-border/50 bg-charcoal-900/80 px-4 sm:px-6 py-2.5 sm:py-3 shadow-2xl backdrop-blur-md"
           }`}
         >
@@ -131,7 +155,7 @@ export default function Navbar() {
                 >
                   <span>{link.label}</span>
                   {isActive && (
-                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-gold-400" />
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-gold-400 shadow-gold-subtle" />
                   )}
                 </Link>
               );

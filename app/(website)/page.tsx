@@ -21,6 +21,9 @@ import SectionReveal from "@/components/motion/SectionReveal";
 import TextReveal from "@/components/motion/TextReveal";
 import ImageReveal from "@/components/motion/ImageReveal";
 import MagneticButton from "@/components/motion/MagneticButton";
+import PortfolioHoverCard from "@/components/motion/PortfolioHoverCard";
+import ScrollScaleImage from "@/components/motion/ScrollScaleImage";
+import TextClipReveal from "@/components/motion/TextClipReveal";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -125,11 +128,9 @@ export default async function HomePage() {
                 Studio Philosophy
               </span>
 
-              <TextReveal delay={0.1}>
-                <blockquote className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] font-light text-ivory-100 leading-[1.3] tracking-wide">
-                  &ldquo;We do not manufacture moments; we witness them. In the sacred stillness of dawn muhurthams, the ancient granite shadows of shore temples, and the quiet rustle of heirloom kanjivaram silk, we immortalize stories that endure across generations.&rdquo;
-                </blockquote>
-              </TextReveal>
+              <TextClipReveal as="blockquote" className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] font-light text-ivory-100 leading-[1.3] tracking-wide">
+                &ldquo;We do not manufacture moments; we witness them. In the sacred stillness of dawn muhurthams, the ancient granite shadows of shore temples, and the quiet rustle of heirloom kanjivaram silk, we immortalize stories that endure across generations.&rdquo;
+              </TextClipReveal>
 
               <div className="flex items-center justify-center gap-3 pt-4">
                 <div className="h-[1px] w-12 bg-gold-500/40" />
@@ -144,9 +145,9 @@ export default async function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. FEATURED PROJECTS — Asymmetric Editorial Showcase */}
+      {/* 4. FEATURED STORIES — Asymmetrical Editorial Story Spreads */}
       {/* ========================================================================= */}
-      <section id="featured" className="relative px-4 sm:px-6 lg:px-8">
+      <section id="work" className="relative px-6">
         <Container size="wide">
           <SectionReveal yOffset={25}>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-bronze-border/60 pb-8 mb-16">
@@ -154,9 +155,9 @@ export default async function HomePage() {
                 <span className="text-overline uppercase tracking-widest text-gold-400">
                   Curated Collections
                 </span>
-                <h2 className="font-display text-3xl sm:text-5xl font-light text-ivory-100">
+                <TextClipReveal as="h2" className="font-display text-3xl sm:text-5xl font-light text-ivory-100">
                   Featured Stories
-                </h2>
+                </TextClipReveal>
               </div>
 
               <Link
@@ -183,21 +184,21 @@ export default async function HomePage() {
                 >
                   {/* Image Showcase */}
                   <div
-                    className={`relative overflow-hidden rounded-2xl border border-bronze-border/70 bg-charcoal-900 group ${
+                    className={`relative overflow-hidden rounded-2xl border border-bronze-border/70 bg-charcoal-900 shadow-2xl transition-all duration-500 group-hover:border-gold-500/50 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.85)] group ${
                       isEven ? "lg:col-span-7" : "lg:col-span-7 lg:order-2"
                     }`}
                   >
-                    <ImageReveal delay={0.15}>
+                    <ScrollScaleImage initialScale={1.06} targetScale={1.0}>
                       <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden">
                         <RKImage
                           src={proj.cover_image_url}
                           alt={proj.title}
                           preset="editorial"
                           aspectRatio="cinematic"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         />
                       </div>
-                    </ImageReveal>
+                    </ScrollScaleImage>
                   </div>
 
                   {/* Project Meta Info */}

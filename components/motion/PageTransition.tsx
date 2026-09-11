@@ -19,13 +19,14 @@ export default function PageTransition({
   return (
     <motion.div
       key={pathname}
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
       transition={{
-        duration: 0.45,
-        ease: [0.22, 1, 0.36, 1], // easeOutQuint
+        duration: 0.38,
+        delay: 0.08,
+        ease: [0.16, 1, 0.3, 1], // luxury easeOutExpo
       }}
+      className="w-full"
     >
       {children}
     </motion.div>

@@ -15,8 +15,8 @@ export default function SectionReveal({
   children,
   className = "",
   delay = 0,
-  duration = 0.7,
-  yOffset = 30,
+  duration = 0.75,
+  yOffset = 24, // Restrained luxury vertical offset
 }: SectionRevealProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -32,9 +32,9 @@ export default function SectionReveal({
       transition={{
         duration,
         delay,
-        ease: [0.215, 0.61, 0.355, 1], // easeOutCubic
+        ease: [0.16, 1, 0.3, 1], // luxury easeOutExpo
       }}
-      className={className}
+      className={`will-change-transform transform-gpu ${className}`}
     >
       {children}
     </motion.div>

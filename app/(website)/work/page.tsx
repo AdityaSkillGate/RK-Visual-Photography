@@ -6,6 +6,9 @@ import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import SectionReveal from "@/components/motion/SectionReveal";
 import ImageReveal from "@/components/motion/ImageReveal";
+import PortfolioHoverCard from "@/components/motion/PortfolioHoverCard";
+import ScrollScaleImage from "@/components/motion/ScrollScaleImage";
+import TextClipReveal from "@/components/motion/TextClipReveal";
 import { MapPin, Calendar, ArrowUpRight, Images } from "lucide-react";
 
 export const revalidate = 60;
@@ -58,9 +61,9 @@ export default async function WorkPage() {
               <span className="text-overline uppercase tracking-widest text-gold-400 font-semibold block">
                 Portfolio
               </span>
-              <h1 className="font-display text-4xl sm:text-6xl font-light text-ivory-100 tracking-tightest">
+              <TextClipReveal as="h1" className="font-display text-4xl sm:text-6xl font-light text-ivory-100 tracking-tightest">
                 Selected Work
-              </h1>
+              </TextClipReveal>
               <p className="max-w-lg mx-auto text-xs sm:text-sm text-sand-400 font-light leading-relaxed">
                 Curated photoshoot collections, royal wedding heirlooms, and fine-art romance stories documented across Tamil Nadu and destination locales.
               </p>
@@ -137,68 +140,72 @@ export default async function WorkPage() {
                     yOffset={25}
                     className={isWide ? "md:col-span-2" : ""}
                   >
-                    <article className="group">
-                      <Link href={`/work/${proj.slug}`} className="block space-y-4">
-                        {/* Image Frame */}
-                        <div
-                          className={`relative overflow-hidden rounded-2xl border border-bronze-border/70 bg-charcoal-900 shadow-xl ${
-                            isWide
-                              ? "aspect-[16/9] sm:aspect-[21/9]"
-                              : "aspect-[4/3] sm:aspect-[16/10]"
-                          }`}
-                        >
-                          <ImageReveal delay={0.1}>
-                            <RKImage
-                              src={proj.cover_image_url}
-                              alt={proj.title}
-                              preset={isWide ? "fullscreen" : "editorial"}
-                              aspectRatio="cinematic"
-                              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                          </ImageReveal>
-                          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <PortfolioHoverCard>
+                      <article className="group">
+                        <Link href={`/work/${proj.slug}`} className="block space-y-4">
+                          {/* Image Frame with ScrollScaleImage and Hover Zoom */}
+                          <div
+                            className={`relative overflow-hidden rounded-2xl border border-bronze-border/70 bg-charcoal-900 shadow-xl transition-all duration-500 group-hover:border-gold-500/50 group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.85)] ${
+                              isWide
+                                ? "aspect-[16/9] sm:aspect-[21/9]"
+                                : "aspect-[4/3] sm:aspect-[16/10]"
+                            }`}
+                          >
+                            <ScrollScaleImage initialScale={1.06} targetScale={1.0}>
+                              <div className="relative w-full h-full">
+                                <RKImage
+                                  src={proj.cover_image_url}
+                                  alt={proj.title}
+                                  preset={isWide ? "fullscreen" : "editorial"}
+                                  aspectRatio="cinematic"
+                                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                />
+                              </div>
+                            </ScrollScaleImage>
+                            <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/85 via-transparent to-transparent opacity-40 group-hover:opacity-80 transition-opacity duration-500" />
 
-                          {proj.categories && (
-                            <div className="absolute top-4 left-4 z-10">
-                              <span className="rounded-full bg-charcoal-950/80 backdrop-blur-sm border border-bronze-border/60 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-gold-400">
-                                {proj.categories.name}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Details */}
-                        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pt-1">
-                          <div className="space-y-1">
-                            <h2 className="font-display text-xl sm:text-2xl font-light text-ivory-100 group-hover:text-gold-300 transition-colors">
-                              {proj.title}
-                            </h2>
-                            <div className="flex items-center gap-2 text-[11px] text-sand-500 font-light">
-                              {proj.location && (
-                                <span className="flex items-center gap-1">
-                                  <MapPin size={11} className="text-gold-400" />
-                                  {proj.location}
+                            {proj.categories && (
+                              <div className="absolute top-4 left-4 z-10 transition-transform duration-500 group-hover:-translate-y-1">
+                                <span className="rounded-full bg-charcoal-950/85 backdrop-blur-md border border-bronze-border/60 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-gold-400 group-hover:border-gold-500/50 transition-colors">
+                                  {proj.categories.name}
                                 </span>
-                              )}
-                              {proj.event_date && (
-                                <>
-                                  <span>•</span>
-                                  <span className="flex items-center gap-1">
-                                    <Calendar size={11} />
-                                    {proj.event_date}
-                                  </span>
-                                </>
-                              )}
-                            </div>
+                              </div>
+                            )}
                           </div>
 
-                          <div className="flex items-center gap-1 text-xs font-semibold uppercase tracking-editorial text-gold-400 shrink-0">
-                            <span>View Story</span>
-                            <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          {/* Details */}
+                          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pt-1">
+                            <div className="space-y-1">
+                              <h2 className="font-display text-xl sm:text-2xl font-light text-ivory-100 group-hover:text-gold-300 transition-colors">
+                                {proj.title}
+                              </h2>
+                              <div className="flex items-center gap-2 text-[11px] text-sand-500 font-light">
+                                {proj.location && (
+                                  <span className="flex items-center gap-1">
+                                    <MapPin size={11} className="text-gold-400" />
+                                    {proj.location}
+                                  </span>
+                                )}
+                                {proj.event_date && (
+                                  <>
+                                    <span>•</span>
+                                    <span className="flex items-center gap-1">
+                                      <Calendar size={11} />
+                                      {proj.event_date}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-editorial text-gold-400 group-hover:text-gold-300 transition-colors shrink-0">
+                              <span>View Story</span>
+                              <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                            </div>
                           </div>
-                        </div>
-                      </Link>
-                    </article>
+                        </Link>
+                      </article>
+                    </PortfolioHoverCard>
                   </SectionReveal>
                 );
               })}
