@@ -7,6 +7,7 @@ import Container from "@/components/ui/Container";
 import SectionReveal from "@/components/motion/SectionReveal";
 import ImageReveal from "@/components/motion/ImageReveal";
 import MagneticButton from "@/components/motion/MagneticButton";
+import ClientJourneySection from "@/components/services/ClientJourneySection";
 import { Check, ArrowRight, ShieldCheck, Sparkles, BookOpen, Clock } from "lucide-react";
 import {
   JsonLd,
@@ -40,33 +41,6 @@ export const metadata: Metadata = {
 
 export default async function ServicesPage() {
   const services = await getActiveServices();
-
-  const studioWorkflow = [
-    {
-      step: "01",
-      title: "Discovery & Creative Alignment",
-      description:
-        "Every commission begins with an unhurried conversation. We delve into your schedule, family traditions, venue lighting, and personal aesthetic to craft a tailored coverage blueprint.",
-    },
-    {
-      step: "02",
-      title: "Unobtrusive Documentation",
-      description:
-        "During your celebrations, we blend seamless photojournalism with quiet editorial portrait direction. We let natural moments breathe without interrupting authentic emotion.",
-    },
-    {
-      step: "03",
-      title: "Master Color Crafting",
-      description:
-        "Each selected frame receives dedicated hand-tuning in our color suite. We honor true South Indian skin tones, luminous silks, and the golden glow of temple vilakku flames.",
-    },
-    {
-      step: "04",
-      title: "Archival Heirloom Delivery",
-      description:
-        "Your photographs are preserved in museum-grade Italian leather albums and delivered via a private, ultra-high-definition digital gallery accessible worldwide.",
-    },
-  ];
 
   return (
     <div className="space-y-24 pb-32">
@@ -207,45 +181,8 @@ export default async function ServicesPage() {
         </Container>
       </section>
 
-      {/* Studio Workflow */}
-      <section className="px-4 sm:px-6 lg:px-8">
-        <Container size="wide">
-          <SectionReveal yOffset={30}>
-            <div className="rounded-3xl border border-bronze-border/60 bg-charcoal-900/30 p-8 sm:p-14">
-              <div className="text-center max-w-2xl mx-auto space-y-3 mb-16">
-                <span className="text-overline uppercase tracking-widest text-gold-400 font-semibold block">
-                  The Process
-                </span>
-                <h2 className="font-display text-3xl sm:text-4xl font-light text-ivory-100">
-                  How We Bring Your Story to Life
-                </h2>
-                <p className="text-xs sm:text-sm text-sand-400 font-light">
-                  From initial conceptual dialogue to the final heirloom reveal, every milestone is designed for calm reassurance and artistic excellence.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {studioWorkflow.map((item) => (
-                  <div
-                    key={item.step}
-                    className="space-y-4 border-l border-gold-500/30 pl-6 relative"
-                  >
-                    <span className="font-mono text-xs uppercase tracking-widest text-gold-400 font-semibold">
-                      {item.step}
-                    </span>
-                    <h3 className="font-display text-lg text-ivory-100 font-normal">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-sand-400 font-light leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </SectionReveal>
-        </Container>
-      </section>
+      {/* Studio Client Journey */}
+      <ClientJourneySection />
 
       {/* Archival Quality Standards */}
       <section className="px-4 sm:px-6 lg:px-8">

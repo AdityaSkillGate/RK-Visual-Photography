@@ -28,6 +28,8 @@ import TextClipReveal from "@/components/motion/TextClipReveal";
 import EditorialMarquee from "@/components/motion/EditorialMarquee";
 import StickyStorySection from "@/components/story/StickyStorySection";
 import ExperienceMetrics from "@/components/sections/ExperienceMetrics";
+import InteractiveServicesSection from "@/components/services/InteractiveServicesSection";
+import ClientJourneySection from "@/components/services/ClientJourneySection";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -320,73 +322,14 @@ export default async function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. SERVICES PREVIEW — Bespoke Offerings */}
+      {/* 6. INTERACTIVE SERVICES PRESENTATION — Bespoke Studio Offerings */}
       {/* ========================================================================= */}
-      <section id="services" className="relative px-4 sm:px-6 lg:px-8">
-        <Container size="default">
-          <SectionReveal yOffset={25}>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-bronze-border/60 pb-8 mb-12">
-              <div className="space-y-2">
-                <span className="text-overline uppercase tracking-widest text-gold-400">
-                  Studio Offerings
-                </span>
-                <h2 className="font-display text-3xl sm:text-5xl font-light text-ivory-100">
-                  Services &amp; Packages
-                </h2>
-              </div>
-              <Link
-                href="/services"
-                className="text-xs font-semibold uppercase tracking-editorial text-gold-400 hover:text-gold-300 inline-flex items-center gap-1.5"
-              >
-                <span>View Full Details</span>
-                <ArrowUpRight size={14} />
-              </Link>
-            </div>
-          </SectionReveal>
+      <InteractiveServicesSection services={services} />
 
-          <SectionReveal delay={0.15} yOffset={20}>
-            <div className="divide-y divide-bronze-border/50">
-              {services.map((svc, index) => (
-                <div
-                  key={svc.id}
-                  className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center group transition-colors hover:bg-charcoal-900/30 px-4 rounded-xl"
-                >
-                  <div className="lg:col-span-1 font-mono text-sm text-sand-500">
-                    0{index + 1}
-                  </div>
-
-                  <div className="lg:col-span-5 space-y-1">
-                    <h3 className="font-display text-2xl font-normal text-ivory-100 group-hover:text-gold-300 transition-colors">
-                      {svc.title}
-                    </h3>
-                    <p className="text-xs text-sand-400 font-light leading-relaxed">
-                      {svc.summary}
-                    </p>
-                  </div>
-
-                  <div className="lg:col-span-4 text-xs text-sand-400 font-light">
-                    {/* Feature preview */}
-                    <span className="text-ivory-200">Includes: </span>
-                    {Array.isArray(svc.features) && svc.features.length > 0
-                      ? String(svc.features[0])
-                      : "Comprehensive fine-art coverage"}
-                  </div>
-
-                  <div className="lg:col-span-2 text-right">
-                    <Link
-                      href="/services"
-                      className="inline-flex items-center gap-1 text-xs font-medium uppercase tracking-editorial text-gold-400 hover:underline"
-                    >
-                      <span>Inquire</span>
-                      <ArrowRight size={12} />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </SectionReveal>
-        </Container>
-      </section>
+      {/* ========================================================================= */}
+      {/* 6.2 CLIENT JOURNEY — "Your Story With RK" 6-Step Visual Progression */}
+      {/* ========================================================================= */}
+      <ClientJourneySection />
 
       {/* ========================================================================= */}
       {/* 6.5 STICKY STORYTELLING — Chapter-Based Visual Narratives */}
