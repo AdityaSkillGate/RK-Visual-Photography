@@ -161,6 +161,27 @@ export async function getProjectBySlug(slug: string): Promise<PublicProject | nu
 }
 
 /**
+ * Fetches the next published project in sequence for seamless editorial next-project navigation.
+ */
+export async function getNextProject(currentSlug: string): Promise<PublicProject | null> {
+  try {
+    const projects = await getPublishedProjects();
+    if (!projects || projects.length === 0) return null;
+
+    const currentIndex = projects.findIndex((p) => p.slug === currentSlug);
+    if (currentIndex === -1) {
+      return projects[0] || null;
+    }
+
+    const nextIndex = (currentIndex + 1) % projects.length;
+    return projects[nextIndex] || null;
+  } catch (err) {
+    console.warn("Fallback served for getNextProject:", err);
+    return null;
+  }
+}
+
+/**
  * Fetches all active published categories.
  */
 export async function getActiveCategories(): Promise<CategoryRow[]> {
