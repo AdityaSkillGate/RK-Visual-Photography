@@ -236,7 +236,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
             name="name"
             required
             placeholder="e.g. Meera & Arun"
-            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3 text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3.5 text-base sm:text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
           />
         </div>
 
@@ -249,7 +249,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
             name="email"
             required
             placeholder="e.g. client@domain.com"
-            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3 text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3.5 text-base sm:text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
           />
         </div>
       </div>
@@ -265,7 +265,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
             name="phone"
             required
             placeholder="e.g. +91 98765 43210"
-            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3 text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3.5 text-base sm:text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
           />
         </div>
 
@@ -277,7 +277,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
             name="event_type"
             value={selectedEventType}
             onChange={(e) => setSelectedEventType(e.target.value)}
-            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3 text-xs text-ivory-100 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3.5 text-base sm:text-xs text-ivory-100 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
           >
             {EVENT_TYPES.map((type) => (
               <option key={type} value={type} className="bg-charcoal-900 text-ivory-100">
@@ -299,7 +299,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
               type="text"
               name="event_date"
               placeholder="e.g. 18 November 2026 or Muhurtham Tentative"
-              className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 pl-10 pr-4 py-3 text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+              className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 pl-10 pr-4 py-3.5 text-base sm:text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
             />
             <Calendar
               size={15}
@@ -317,7 +317,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
               type="text"
               name="location"
               placeholder="e.g. Chennai, Madurai, Coimbatore, Mahabalipuram"
-              className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 pl-10 pr-4 py-3 text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+              className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 pl-10 pr-4 py-3.5 text-base sm:text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
             />
             <MapPin
               size={15}
@@ -340,7 +340,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
               max={15000}
               name="expected_guests"
               placeholder="e.g. 450"
-              className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 pl-10 pr-4 py-3 text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+              className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 pl-10 pr-4 py-3.5 text-base sm:text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
             />
             <Users
               size={15}
@@ -357,7 +357,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
             name="preferred_service"
             value={selectedService}
             onChange={(e) => setSelectedService(e.target.value)}
-            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3 text-xs text-ivory-100 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+            className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3.5 text-base sm:text-xs text-ivory-100 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
           >
             {PREFERRED_SERVICES.map((s) => (
               <option key={s} value={s} className="bg-charcoal-900 text-ivory-100">
@@ -376,7 +376,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
         <select
           name="budget_range"
           defaultValue={BUDGET_RANGES[1]}
-          className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3 text-xs text-ivory-100 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
+          className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3.5 text-base sm:text-xs text-ivory-100 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors"
         >
           {BUDGET_RANGES.map((b) => (
             <option key={b} value={b} className="bg-charcoal-900 text-ivory-100">
@@ -395,7 +395,7 @@ export default function ContactForm({ initialService }: ContactFormProps) {
           name="message"
           rows={4}
           placeholder="Share your story, venue details, sacred rituals of particular significance, or any questions for our creative director..."
-          className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3 text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors resize-none leading-relaxed"
+          className="w-full rounded-xl border border-bronze-border/80 bg-charcoal-950/70 px-4 py-3.5 text-base sm:text-xs text-ivory-100 placeholder:text-sand-600 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500 transition-colors resize-none leading-relaxed"
         />
       </div>
 

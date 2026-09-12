@@ -226,25 +226,25 @@ export default function RKHeroMask({
         <button
           type="button"
           onClick={toggleExpand}
-          className="rounded-full bg-charcoal-950/80 border border-bronze-border/60 p-2 text-sand-400 hover:text-gold-300 hover:border-gold-500/50 backdrop-blur-sm transition-colors"
+          className="flex items-center justify-center h-10 w-10 rounded-full bg-charcoal-950/80 border border-bronze-border/60 text-sand-400 hover:text-gold-300 hover:border-gold-500/50 backdrop-blur-sm transition-colors active:scale-95"
           title={isExpanded ? "Collapse to Monogram" : "Expand Full Frame"}
           aria-label={isExpanded ? "Collapse to Monogram" : "Expand Full Frame"}
         >
-          {isExpanded ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
+          {isExpanded ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
         </button>
       </div>
 
       {/* 4. Bottom Editorial Metadata */}
-      <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between text-xs text-ivory-100 backdrop-blur-md rounded-xl bg-charcoal-950/70 border border-bronze-border/60 px-4 py-2.5">
-        <div className="space-y-0.5">
-          <p className="font-display text-sm text-ivory-100 font-light">{title}</p>
-          <div className="flex items-center gap-1 text-[11px] text-sand-400 font-light">
-            <MapPin size={11} className="text-gold-400" />
-            <span>{location}</span>
+      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 z-10 flex items-center justify-between gap-2 text-xs text-ivory-100 backdrop-blur-md rounded-xl bg-charcoal-950/80 border border-bronze-border/60 px-3 sm:px-4 py-2 sm:py-2.5">
+        <div className="space-y-0.5 min-w-0">
+          <p className="font-display text-xs sm:text-sm text-ivory-100 font-light truncate">{title}</p>
+          <div className="flex items-center gap-1 text-[10px] sm:text-[11px] text-sand-400 font-light truncate">
+            <MapPin size={10} className="text-gold-400 shrink-0" />
+            <span className="truncate">{location}</span>
           </div>
         </div>
 
-        <div className="text-[10px] font-mono text-gold-400/90 uppercase tracking-widest text-right">
+        <div className="text-[9px] sm:text-[10px] font-mono text-gold-400/90 uppercase tracking-widest text-right shrink-0">
           {scrollProgress > 0.4 || isExpanded ? "Full Scene" : "Scroll to Reveal"}
         </div>
       </div>

@@ -246,35 +246,35 @@ export default function FollowTheJourney({ posts, links }: FollowTheJourneyProps
 
         {/* Connected Channels Bottom Strip */}
         <SectionReveal delay={0.2} yOffset={20}>
-          <div className="mt-16 rounded-3xl border border-bronze-border/60 bg-charcoal-900/40 p-6 sm:p-8 backdrop-blur-sm">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="mt-12 sm:mt-16 rounded-2xl sm:rounded-3xl border border-bronze-border/60 bg-charcoal-900/40 p-4 sm:p-8 backdrop-blur-sm">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
               <div className="space-y-1">
                 <span className="text-overline uppercase tracking-widest text-gold-400 font-semibold block">
                   Studio Channels
                 </span>
-                <h3 className="font-display text-xl text-ivory-100 font-light">
+                <h3 className="font-display text-lg sm:text-xl text-ivory-100 font-light">
                   Direct Inquiries & Official Broadcasts
                 </h3>
               </div>
 
               {/* Social Channels Pills */}
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 {links.filter((l) => l.is_active).map((link) => (
                   <a
                     key={link.id}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-bronze-border/80 bg-charcoal-850 px-3.5 py-2 text-xs font-medium text-sand-300 hover:border-gold-500/50 hover:text-ivory-100 transition-all group"
+                    className="inline-flex max-w-full items-center gap-1.5 sm:gap-2 rounded-xl border border-bronze-border/80 bg-charcoal-850 px-3 sm:px-3.5 py-2 text-xs font-medium text-sand-300 hover:border-gold-500/50 hover:text-ivory-100 transition-all group shrink-0"
                   >
                     {getChannelIcon(link.platform)}
                     <span>{link.label}</span>
                     {link.handle && (
-                      <span className="text-[11px] font-mono text-sand-500 group-hover:text-gold-400/80">
+                      <span className="hidden sm:inline-block text-[11px] font-mono text-sand-500 group-hover:text-gold-400/80 truncate max-w-[140px]">
                         {link.handle}
                       </span>
                     )}
-                    <ArrowUpRight size={12} className="text-sand-500 group-hover:text-gold-400 transition-colors" />
+                    <ArrowUpRight size={12} className="text-sand-500 group-hover:text-gold-400 transition-colors shrink-0" />
                   </a>
                 ))}
               </div>

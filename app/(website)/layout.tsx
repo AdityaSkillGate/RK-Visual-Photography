@@ -4,6 +4,7 @@ import SmoothScrollProvider from "@/components/motion/SmoothScrollProvider";
 import PageTransition from "@/components/motion/PageTransition";
 import CinematicCurtain from "@/components/motion/CinematicCurtain";
 import RKAssistantWrapper from "@/components/chatbot/RKAssistantWrapper";
+import MobileStickyCTA from "@/components/navigation/MobileStickyCTA";
 
 export default function WebsiteLayout({
   children,
@@ -12,7 +13,7 @@ export default function WebsiteLayout({
 }) {
   return (
     <SmoothScrollProvider>
-      <div className="flex min-h-screen flex-col bg-charcoal-950 text-ivory-100 selection:bg-gold-500 selection:text-charcoal-950">
+      <div className="flex min-h-screen flex-col bg-charcoal-950 text-ivory-100 selection:bg-gold-500 selection:text-charcoal-950 pb-16 md:pb-0">
         <CinematicCurtain />
         <Navbar />
         <main className="flex-1 pt-24">
@@ -20,6 +21,7 @@ export default function WebsiteLayout({
         </main>
         <Footer />
         <RKAssistantWrapper />
+        <MobileStickyCTA />
       </div>
     </SmoothScrollProvider>
   );

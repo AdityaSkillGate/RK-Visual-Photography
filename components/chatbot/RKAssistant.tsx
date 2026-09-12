@@ -218,7 +218,7 @@ export default function RKAssistant({ categories, questions }: RKAssistantProps)
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 pointer-events-none font-sans">
+    <div className="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 pointer-events-none font-sans">
       {/* ============================================================================ */}
       {/* 1. ASK RK ASSISTANT SLIDE-IN PANEL */}
       {/* ============================================================================ */}
@@ -227,7 +227,7 @@ export default function RKAssistant({ categories, questions }: RKAssistantProps)
           role="dialog"
           aria-modal="true"
           aria-label="Ask RK Assistant"
-          className="pointer-events-auto absolute bottom-16 sm:bottom-20 right-0 w-[calc(100vw-2rem)] sm:w-[440px] md:w-[460px] h-[640px] max-h-[calc(100vh-6.5rem)] flex flex-col rounded-3xl border border-gold-500/30 bg-charcoal-950/98 backdrop-blur-2xl shadow-2xl shadow-charcoal-950/95 overflow-hidden animate-fade-in transition-all duration-300"
+          className="pointer-events-auto fixed inset-x-3 bottom-20 top-14 sm:inset-x-auto sm:right-6 sm:bottom-24 sm:top-auto sm:w-[440px] md:w-[460px] sm:h-[620px] md:h-[640px] max-h-[calc(100dvh-6rem)] sm:max-h-[calc(100vh-7rem)] flex flex-col rounded-3xl border border-gold-500/30 bg-charcoal-950/98 backdrop-blur-2xl shadow-2xl shadow-charcoal-950/95 overflow-hidden animate-fade-in transition-all duration-300"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-bronze-border/50 bg-charcoal-900/90 px-4 sm:px-5 py-3.5 select-none">
@@ -522,7 +522,9 @@ export default function RKAssistant({ categories, questions }: RKAssistantProps)
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className={`relative group flex h-14 w-14 items-center justify-center rounded-full shadow-2xl transition-all duration-300 ${
+          className={`relative group ${
+            isOpen ? "hidden sm:flex" : "flex"
+          } h-14 w-14 items-center justify-center rounded-full shadow-2xl transition-all duration-300 ${
             isOpen
               ? "bg-charcoal-900 border border-gold-500/50 text-gold-400 rotate-90"
               : "bg-gradient-to-br from-charcoal-900 to-charcoal-950 border border-gold-500/50 text-gold-400 hover:border-gold-400 hover:scale-105 shadow-gold-subtle"

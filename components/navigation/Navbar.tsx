@@ -102,12 +102,12 @@ export default function Navbar() {
           {/* Brand Logo */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5 sm:gap-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 rounded-full"
+            className="group flex items-center gap-2 sm:gap-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 rounded-full"
             aria-label="RK Visual Photography Home"
           >
             <div
               id="navbar-brand-logo"
-              className={`relative overflow-hidden rounded-full border border-gold-500/40 p-0.5 transition-all duration-500 group-hover:scale-105 ${
+              className={`relative overflow-hidden rounded-full border border-gold-500/40 p-0.5 transition-all duration-500 group-hover:scale-105 shrink-0 ${
                 isScrolled ? "h-7 w-7 sm:h-8 sm:w-8" : "h-8 w-8 sm:h-9 sm:w-9"
               }`}
             >
@@ -124,13 +124,13 @@ export default function Navbar() {
               <span
                 className={`font-display tracking-widest text-ivory-100 uppercase transition-all duration-500 ${
                   isScrolled
-                    ? "text-sm sm:text-base leading-tight"
-                    : "text-base sm:text-lg leading-snug"
+                    ? "text-xs sm:text-base leading-tight"
+                    : "text-sm sm:text-lg leading-snug"
                 }`}
               >
                 RK Visual
               </span>
-              <span className="text-[8px] sm:text-[9px] tracking-[0.25em] text-gold-400/90 uppercase">
+              <span className="text-[7.5px] sm:text-[9px] tracking-[0.22em] text-gold-400/90 uppercase">
                 Photography
               </span>
             </div>
@@ -163,11 +163,11 @@ export default function Navbar() {
           </nav>
 
           {/* Header Actions with Magnetic Pull */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <MagneticButton strength={0.25}>
               <Link
                 href="/contact"
-                className="inline-flex items-center rounded-full border border-gold-500/50 bg-gold-500/10 px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-medium tracking-editorial text-gold-300 transition-all duration-300 hover:border-gold-400 hover:bg-gold-500/20 hover:text-ivory-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
+                className="inline-flex items-center rounded-full border border-gold-500/50 bg-gold-500/10 px-2.5 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium tracking-editorial text-gold-300 transition-all duration-300 hover:border-gold-400 hover:bg-gold-500/20 hover:text-ivory-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 min-h-[36px]"
               >
                 Inquire
               </Link>

@@ -113,7 +113,7 @@ export default async function HomePage() {
         settings={settings}
       />
 
-      <div className="space-y-24 sm:space-y-32 lg:space-y-40 pb-24 mt-8 sm:mt-12 lg:mt-16">
+      <div className="space-y-16 sm:space-y-28 lg:space-y-36 pb-20 sm:pb-24 mt-6 sm:mt-12 lg:mt-16">
         {/* ========================================================================= */}
         {/* 3. BRAND STATEMENT — Fine-Art Manifesto */}
         {/* ========================================================================= */}
@@ -288,7 +288,7 @@ export default async function HomePage() {
                 <Link
                   key={cat.id}
                   href={`/work?category=${cat.slug}`}
-                  className="group flex flex-col justify-between rounded-2xl border border-bronze-border/70 bg-charcoal-900/50 p-5 sm:p-6 transition-all duration-300 hover:border-gold-500/50 hover:bg-charcoal-900 hover:shadow-card-luxury text-center sm:text-left"
+                  className="group flex flex-col justify-between rounded-2xl border border-bronze-border/70 bg-charcoal-900/50 p-3.5 sm:p-5 lg:p-6 transition-all duration-300 hover:border-gold-500/50 hover:bg-charcoal-900 hover:shadow-card-luxury text-center sm:text-left"
                 >
                   <div>
                     <span className="text-[10px] font-mono text-sand-500 block mb-1">

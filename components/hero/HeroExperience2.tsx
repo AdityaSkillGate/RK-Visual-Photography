@@ -587,27 +587,27 @@ export default function HeroExperience2({
               {/* Studio Presence Eyebrow & Replay Control */}
               <div
                 ref={heroEyebrowRef}
-                className="flex flex-wrap items-center gap-3"
+                className="flex flex-wrap items-center gap-2 sm:gap-3"
               >
-                <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-charcoal-900/80 px-3.5 py-1 text-[10px] sm:text-xs uppercase tracking-widest text-gold-400 backdrop-blur-sm shadow-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold-400 animate-pulse" />
-                  <span>Tamil Nadu, India • Available Worldwide</span>
+                <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-gold-500/30 bg-charcoal-900/80 px-3 sm:px-3.5 py-1 text-[9px] sm:text-xs uppercase tracking-widest text-gold-400 backdrop-blur-sm shadow-sm max-w-full">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold-400 animate-pulse shrink-0" />
+                  <span className="truncate">Tamil Nadu, India • Available Worldwide</span>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => playCinematicSequence(true)}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-gold-500/30 bg-charcoal-900/60 px-3 py-1 text-[10px] uppercase font-mono tracking-widest text-sand-400 hover:text-gold-300 hover:border-gold-500/50 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-gold-500/30 bg-charcoal-900/60 px-2.5 sm:px-3 py-1 text-[9.5px] sm:text-[10px] uppercase font-mono tracking-widest text-sand-400 hover:text-gold-300 hover:border-gold-500/50 transition-colors shrink-0"
                   title="Replay Signature Cinematic Intro"
                 >
-                  <Play size={9} className="text-gold-400" />
+                  <Play size={8} className="text-gold-400" />
                   <span>Replay Intro</span>
                 </button>
               </div>
 
               {/* Editorial Overline */}
               <div ref={heroOverlineRef}>
-                <span className="font-mono text-xs uppercase tracking-[0.25em] text-gold-400/90 font-semibold block">
+                <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.25em] text-gold-400/90 font-semibold block">
                   Fine-Art &amp; Heritage Weddings
                 </span>
               </div>
@@ -615,7 +615,7 @@ export default function HeroExperience2({
               {/* Short, Confident Headline */}
               <h1
                 ref={heroHeadlineRef}
-                className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-[4.2rem] font-light leading-[1.08] text-ivory-100 tracking-tightest"
+                className="font-display text-3xl sm:text-5xl lg:text-[3.5rem] xl:text-[4.2rem] font-light leading-[1.1] text-ivory-100 tracking-tightest"
               >
                 Stories Told in <br />
                 <span className="italic font-normal text-gold-300">Silk &amp; Sunlight.</span>
@@ -624,21 +624,21 @@ export default function HeroExperience2({
               {/* Editorial Subtitle */}
               <p
                 ref={heroSubtitleRef}
-                className="max-w-lg text-sm sm:text-base text-sand-300 font-light leading-relaxed pt-0.5"
+                className="max-w-lg text-xs sm:text-sm md:text-base text-sand-300 font-light leading-relaxed pt-0.5"
               >
                 Documenting sacred rituals, intimate familial glances, and quiet reverence across South India and worldwide destinations.
               </p>
 
-              {/* High-Conversion Dual CTAs */}
+              {/* High-Conversion Dual CTAs (Touch-friendly 48px+ on mobile) */}
               <div
                 ref={heroCtasRef}
-                className="flex flex-wrap items-center gap-3.5 pt-2"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
               >
                 {/* Primary CTA: EXPLORE OUR WORK */}
                 <MagneticButton strength={0.25}>
                   <Link
                     href="/work"
-                    className="inline-flex items-center gap-2.5 rounded-full bg-gold-500 px-7 py-3 text-xs font-semibold uppercase tracking-editorial text-charcoal-950 transition-all duration-300 hover:bg-gold-400 shadow-gold-subtle hover:scale-[1.02]"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full bg-gold-500 px-7 py-3.5 sm:py-3 text-xs font-semibold uppercase tracking-editorial text-charcoal-950 transition-all duration-300 hover:bg-gold-400 shadow-gold-subtle hover:scale-[1.02] min-h-[48px]"
                   >
                     <span>EXPLORE OUR WORK</span>
                     <ArrowRight size={14} />
@@ -649,7 +649,7 @@ export default function HeroExperience2({
                 <MagneticButton strength={0.2}>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-bronze-border bg-charcoal-900/90 px-6 py-3 text-xs font-medium uppercase tracking-editorial text-sand-300 hover:border-gold-500/50 hover:text-ivory-100 transition-colors"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-bronze-border bg-charcoal-900/90 px-6 py-3.5 sm:py-3 text-xs font-medium uppercase tracking-editorial text-sand-300 hover:border-gold-500/50 hover:text-ivory-100 transition-colors min-h-[48px]"
                   >
                     <span>START AN INQUIRY</span>
                   </Link>

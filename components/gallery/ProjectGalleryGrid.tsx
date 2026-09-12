@@ -99,16 +99,22 @@ export default function ProjectGalleryGrid({
                     className="h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
 
-                  {/* Gentle hover overlay with loupe */}
-                  <div className="absolute inset-0 bg-charcoal-950/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                  {/* Desktop hover overlay with loupe */}
+                  <div className="hidden md:flex absolute inset-0 bg-charcoal-950/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 items-center justify-center pointer-events-none">
                     <div className="rounded-full bg-charcoal-950/85 border border-gold-500/50 p-3.5 text-gold-400 backdrop-blur-md transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-gold-subtle">
                       <ZoomIn size={18} />
                     </div>
                   </div>
 
+                  {/* Mobile Tap-to-Enlarge Hint (Always visible on touch screens without hover) */}
+                  <div className="md:hidden absolute bottom-3 right-3 z-10 pointer-events-none flex items-center gap-1.5 rounded-full bg-charcoal-950/85 backdrop-blur-md border border-gold-500/40 px-2.5 py-1 text-[10px] font-mono text-gold-300 shadow-lg">
+                    <ZoomIn size={11} className="text-gold-400" />
+                    <span>Expand</span>
+                  </div>
+
                   {/* Frame Counter Tag */}
-                  <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <span className="rounded-full bg-charcoal-950/80 backdrop-blur-md border border-bronze-border/60 px-3 py-1 text-[10px] font-mono text-sand-400">
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 opacity-80 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <span className="rounded-full bg-charcoal-950/80 backdrop-blur-md border border-bronze-border/60 px-2.5 sm:px-3 py-1 text-[10px] font-mono text-sand-300">
                       Frame {idx + 1}
                     </span>
                   </div>
