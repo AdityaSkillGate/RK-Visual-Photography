@@ -184,7 +184,7 @@ export default function FlagshipHero({
   // Instant skip on Escape key or click
   const skipIntro = useCallback(() => {
     if (masterTimelineRef.current) {
-      masterTimelineRef.current.progress(1);
+      masterTimelineRef.current.kill();
     }
     finishIntro();
   }, [finishIntro]);
@@ -192,8 +192,9 @@ export default function FlagshipHero({
   // Execute 10-Step Cinematic GSAP Sequence
   const playCinematicSequence = useCallback(
     (forceReplay = false) => {
-      // Accessibility check: bypass long animation if reduced motion preferred
+      // Accessibility check: bypass long animation if reduced motion preferred (unless user explicitly hit Replay)
       if (
+        !forceReplay &&
         typeof window !== "undefined" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ) {
@@ -203,6 +204,10 @@ export default function FlagshipHero({
 
       setIntroActive(true);
       document.body.style.overflow = "hidden";
+
+      if (forceReplay && typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
 
       if (introOverlayRef.current) {
         introOverlayRef.current.style.display = "flex";
@@ -219,7 +224,7 @@ export default function FlagshipHero({
       });
       masterTimelineRef.current = tl;
 
-      // 1. Dark charcoal canvas setup
+      // 1. Dark charcoal canvas setup & reset all elements
       tl.set(introOverlayRef.current, { opacity: 1 })
         .set(introMonogramRef.current, { opacity: 0, scale: 0.82, filter: "blur(8px)" })
         .set(introPhotoInsideRef.current, { opacity: 0, scale: 1.25, xPercent: -6 })
@@ -302,16 +307,13 @@ export default function FlagshipHero({
     [finishIntro]
   );
 
-  // Initialize and handle session logic
+  const hasCheckedSessionRef = useRef(false);
+
+  // Initialize and handle session logic (runs once on mount)
   useEffect(() => {
     setIsClient(true);
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && introActive) {
-        skipIntro();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
+    if (hasCheckedSessionRef.current) return;
+    hasCheckedSessionRef.current = true;
 
     const hasSeenIntro =
       sessionStorage.getItem("rk_flagship_intro_seen_v2") === "true" ||
@@ -322,17 +324,30 @@ export default function FlagshipHero({
     ).matches;
 
     if (!hasSeenIntro && !prefersReducedMotion) {
-      playCinematicSequence();
+      playCinematicSequence(false);
     } else {
       finishIntro();
     }
+  }, [playCinematicSequence, finishIntro]);
 
+  // Handle Escape key to skip overture
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && introActive) {
+        skipIntro();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [introActive, skipIntro]);
+
+  // Clean up tweens on unmount
+  useEffect(() => {
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
       ambientTweensRef.current.forEach((t) => t.kill());
       if (masterTimelineRef.current) masterTimelineRef.current.kill();
     };
-  }, [playCinematicSequence, finishIntro, introActive, skipIntro]);
+  }, []);
 
   return (
     <>
