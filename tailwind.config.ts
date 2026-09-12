@@ -115,11 +115,28 @@ const config: Config = {
       },
       animation: {
         "shimmer-luxury": "shimmer 2.2s infinite linear",
+        "aperture-drift": "apertureDrift 10s ease-in-out infinite alternate",
+        "aperture-shimmer": "apertureShimmer 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+        "aperture-pulse": "aperturePulse 4s ease-in-out infinite",
       },
       keyframes: {
         shimmer: {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
+        },
+        apertureDrift: {
+          "0%": { transform: "translateX(-18px) scale(1.04)" },
+          "100%": { transform: "translateX(18px) scale(1.1)" },
+        },
+        apertureShimmer: {
+          "0%": { transform: "translateX(-150%) skewX(-12deg)", opacity: "0" },
+          "20%": { opacity: "0.8" },
+          "80%": { opacity: "0.8" },
+          "100%": { transform: "translateX(250%) skewX(-12deg)", opacity: "0" },
+        },
+        aperturePulse: {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.85" },
         },
       },
     },

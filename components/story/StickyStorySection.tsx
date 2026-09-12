@@ -4,8 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Sparkles } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionReveal from "@/components/motion/SectionReveal";
 import TextClipReveal from "@/components/motion/TextClipReveal";
+import { useLenis } from "@/components/motion/SmoothScrollProvider";
 
 interface StoryChapter {
   id: string;
@@ -61,43 +64,59 @@ const STORY_CHAPTERS: StoryChapter[] = [
 export default function StickyStorySection() {
   const [activeChapter, setActiveChapter] = useState(0);
   const chapterRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { lenis } = useLenis();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Only set up scroll observer for desktop sticky layout
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Only set up scroll triggers for desktop sticky layout
     if (window.innerWidth < 1024) return;
 
-    const observers: IntersectionObserver[] = [];
+    const triggers: ScrollTrigger[] = [];
 
     chapterRefs.current.forEach((el, index) => {
       if (!el) return;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveChapter(index);
-            }
-          });
-        },
-        {
-          rootMargin: "-25% 0px -40% 0px",
-          threshold: 0.2,
-        }
-      );
+      const st = ScrollTrigger.create({
+        trigger: el,
+        start: "top center+=10%",
+        end: "bottom center-=10%",
+        onEnter: () => setActiveChapter(index),
+        onEnterBack: () => setActiveChapter(index),
+      });
 
-      observer.observe(el);
-      observers.push(observer);
+      triggers.push(st);
     });
 
+    // Refresh ScrollTrigger after DOM settle
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 400);
+
     return () => {
-      observers.forEach((obs) => obs.disconnect());
+      clearTimeout(refreshTimer);
+      triggers.forEach((t) => t.kill());
     };
   }, []);
 
+  const handlePillClick = (index: number) => {
+    setActiveChapter(index);
+    const targetEl = chapterRefs.current[index];
+    if (targetEl) {
+      if (lenis) {
+        lenis.scrollTo(targetEl, { offset: -140 });
+      } else {
+        targetEl.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <section
+      ref={sectionRef}
       id="storytelling"
       className="relative px-4 sm:px-6 lg:px-8 py-12 sm:py-20"
     >
@@ -129,8 +148,8 @@ export default function StickyStorySection() {
         {/* Main 2-Column Composition: Sticky Left Visuals (Desktop) + Scrolling Narrative */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           {/* Left Column: Pinned Visual Monolith (Sticky on Desktop, hidden on mobile) */}
-          <div className="hidden lg:block lg:col-span-6 lg:sticky lg:top-24">
-            <div className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[4/5] w-full max-w-lg max-h-[72vh] mx-auto overflow-hidden rounded-3xl border border-bronze-border/80 bg-charcoal-900 shadow-2xl">
+          <div className="hidden lg:block lg:col-span-6 lg:sticky lg:top-28 xl:top-32 transition-all duration-300">
+            <div className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[4/5] w-full max-w-lg max-h-[75vh] mx-auto overflow-hidden rounded-3xl border border-bronze-border/80 bg-charcoal-900 shadow-2xl">
               {/* Image Stack Cross-Fading with Active Chapter */}
               {STORY_CHAPTERS.map((chap, idx) => {
                 const isActive = activeChapter === idx;
@@ -173,11 +192,8 @@ export default function StickyStorySection() {
                   <button
                     key={`pill-${i}`}
                     type="button"
-                    onClick={() => {
-                      setActiveChapter(i);
-                      chapterRefs.current[i]?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
+                    onClick={() => handlePillClick(i)}
+                    className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
                       activeChapter === i
                         ? "w-8 bg-gold-400 shadow-gold-subtle"
                         : "w-2 bg-ivory-100/30 hover:bg-ivory-100/60"
