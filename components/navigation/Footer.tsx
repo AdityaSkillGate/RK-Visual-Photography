@@ -163,11 +163,32 @@ export default async function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-bronze-border/30 pt-8 text-xs text-sand-500 md:flex-row">
-          <p>© {currentYear} RK Visual Photography. All rights reserved.</p>
-          <p className="tracking-editorial uppercase text-[11px] text-sand-600">
-            Crafted for Timeless Visuals
-          </p>
+        <div className="mt-16 border-t border-bronze-border/30 pt-8">
+          <div className="flex flex-col items-center justify-between gap-3 text-xs text-sand-500 md:flex-row">
+            <p>© {currentYear} RK Visual Photography. All rights reserved.</p>
+            <p className="tracking-editorial uppercase text-[11px] text-sand-600">
+              Crafted for Timeless Visuals
+            </p>
+          </div>
+
+          {/* Agency Credit */}
+          <div className="mt-5 flex items-center justify-center gap-2">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-bronze-border/40" />
+            <p className="text-[10px] font-mono tracking-widest text-sand-600 uppercase">
+              Designed &amp; Maintained by{" "}
+              <a
+                href="https://adityaskillgate.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-0.5 text-gold-500/70 hover:text-gold-400 transition-colors duration-200 font-medium"
+                title="Aditya Skill Gate IT Solution"
+              >
+                Aditya Skill Gate IT Solution
+                <ArrowUpRight size={9} className="mt-px opacity-70" />
+              </a>
+            </p>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-bronze-border/40" />
+          </div>
         </div>
       </div>
     </footer>
