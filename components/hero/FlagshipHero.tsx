@@ -457,8 +457,8 @@ export default function FlagshipHero({
           maskIdx = rightIdx;
           leftIdx = maskIdx;
           rightIdx = nextRightIdx;
-          // Wait 2s before next orbit
-          carouselTimerRef.current = setTimeout(runCycle, 2000);
+          // Wait 1s before next orbit
+          carouselTimerRef.current = setTimeout(runCycle, 1000);
         },
       });
 
