@@ -434,8 +434,8 @@ export default function HeroExperience2({
     };
     window.addEventListener("keydown", handleKeyDown);
 
-    // Run intro sequence
-    playCinematicSequence(false);
+    // Reframe as secondary section: start ambient drift without duplicate blocking overlay
+    finishIntro();
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -443,7 +443,7 @@ export default function HeroExperience2({
       if (timelineRef.current) timelineRef.current.kill();
       ambientTweensRef.current.forEach((t) => t.kill());
     };
-  }, [playCinematicSequence, skipIntro]);
+  }, [finishIntro, playCinematicSequence, skipIntro]);
 
   return (
     <>
@@ -552,10 +552,14 @@ export default function HeroExperience2({
       {/* ========================================================================= */}
       {/* 2. PERMANENT HERO 2.0 (Multi-Layer Asynchronous Photography Composition) */}
       {/* ========================================================================= */}
+      {/* ========================================================================= */}
+      {/* 2. SIGNATURE APERTURE CHAPTER (Interactive RK Monogram Storytelling) */}
+      {/* ========================================================================= */}
       <section
         ref={heroSectionRef}
-        id="hero"
-        className="relative min-h-[calc(100vh-6rem)] px-4 sm:px-6 lg:px-8 pt-1 sm:pt-2 pb-6 flex flex-col justify-between overflow-hidden"
+        id="aperture"
+        aria-label="The RK Signature Aperture"
+        className="relative py-16 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-charcoal-deep text-ivory-100 overflow-hidden"
       >
         {/* Layer 3: Atmospheric Golden Hour Ambient Backdrop */}
         <div
@@ -566,7 +570,6 @@ export default function HeroExperience2({
             src={backdropImage}
             alt="Atmospheric wedding horizon"
             fill
-            priority
             sizes="100vw"
             className="object-cover object-center scale-105"
           />
@@ -579,8 +582,8 @@ export default function HeroExperience2({
           aria-hidden="true"
         />
 
-        {/* Main Hero Grid Composition */}
-        <div className="mx-auto max-w-7xl w-full my-auto py-2 sm:py-4 lg:py-6">
+        {/* Main Section Grid Composition */}
+        <div className="mx-auto max-w-7xl w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Column: Confident Editorial Typography & Dual CTAs */}
             <div className="lg:col-span-6 space-y-4 lg:space-y-5 z-10">
@@ -591,56 +594,56 @@ export default function HeroExperience2({
               >
                 <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-gold-500/30 bg-charcoal-900/80 px-3 sm:px-3.5 py-1 text-[9px] sm:text-xs uppercase tracking-widest text-gold-400 backdrop-blur-sm shadow-sm max-w-full">
                   <span className="h-1.5 w-1.5 rounded-full bg-gold-400 animate-pulse shrink-0" />
-                  <span className="truncate">Tamil Nadu, India • Available Worldwide</span>
+                  <span className="truncate">CHAPTER 02 — THE RK SIGNATURE</span>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => playCinematicSequence(true)}
                   className="inline-flex items-center gap-1.5 rounded-full border border-gold-500/30 bg-charcoal-900/60 px-2.5 sm:px-3 py-1 text-[9.5px] sm:text-[10px] uppercase font-mono tracking-widest text-sand-400 hover:text-gold-300 hover:border-gold-500/50 transition-colors shrink-0"
-                  title="Replay Signature Cinematic Intro"
+                  title="Replay Signature Monogram Aperture Sequence"
                 >
                   <Play size={8} className="text-gold-400" />
-                  <span>Replay Intro</span>
+                  <span>Replay Aperture</span>
                 </button>
               </div>
 
               {/* Editorial Overline */}
               <div ref={heroOverlineRef}>
                 <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.25em] text-gold-400/90 font-semibold block">
-                  Fine-Art &amp; Heritage Weddings
+                  The Geometry of Memory
                 </span>
               </div>
 
               {/* Short, Confident Headline */}
-              <h1
+              <h2
                 ref={heroHeadlineRef}
-                className="font-display text-3xl sm:text-5xl lg:text-[3.5rem] xl:text-[4.2rem] font-light leading-[1.1] text-ivory-100 tracking-tightest"
+                className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-[3.8rem] font-light leading-[1.12] text-ivory-100 tracking-tightest"
               >
-                Stories Told in <br />
-                <span className="italic font-normal text-gold-300">Silk &amp; Sunlight.</span>
-              </h1>
+                The Art of the <br />
+                <span className="italic font-normal text-gold-300">Aperture.</span>
+              </h2>
 
               {/* Editorial Subtitle */}
               <p
                 ref={heroSubtitleRef}
                 className="max-w-lg text-xs sm:text-sm md:text-base text-sand-300 font-light leading-relaxed pt-0.5"
               >
-                Documenting sacred rituals, intimate familial glances, and quiet reverence across South India and worldwide destinations.
+                Experience our bespoke interactive monogram aperture. An homage to golden hour light, architectural balance, and the unscripted cadence of South Indian weddings.
               </p>
 
-              {/* High-Conversion Dual CTAs (Touch-friendly 48px+ on mobile) */}
+              {/* Interactive Dual CTAs */}
               <div
                 ref={heroCtasRef}
                 className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
               >
-                {/* Primary CTA: EXPLORE OUR WORK */}
+                {/* Primary CTA: EXPLORE GALLERY */}
                 <MagneticButton strength={0.25}>
                   <Link
                     href="/work"
                     className="flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full bg-gold-500 px-7 py-3.5 sm:py-3 text-xs font-semibold uppercase tracking-editorial text-charcoal-950 transition-all duration-300 hover:bg-gold-400 shadow-gold-subtle hover:scale-[1.02] min-h-[48px]"
                   >
-                    <span>EXPLORE OUR WORK</span>
+                    <span>EXPLORE ALL ARCHIVES</span>
                     <ArrowRight size={14} />
                   </Link>
                 </MagneticButton>
@@ -651,7 +654,7 @@ export default function HeroExperience2({
                     href="/contact"
                     className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-bronze-border bg-charcoal-900/90 px-6 py-3.5 sm:py-3 text-xs font-medium uppercase tracking-editorial text-sand-300 hover:border-gold-500/50 hover:text-ivory-100 transition-colors min-h-[48px]"
                   >
-                    <span>START AN INQUIRY</span>
+                    <span>COMMISSION THE STUDIO</span>
                   </Link>
                 </MagneticButton>
               </div>
@@ -694,23 +697,6 @@ export default function HeroExperience2({
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Step 10: Elegant Bottom Scroll Indicator */}
-        <div
-          ref={scrollIndicatorRef}
-          className="mx-auto flex flex-col items-center gap-1.5 pt-4 text-sand-400/80 hover:text-gold-400 transition-colors pointer-events-auto cursor-pointer"
-        >
-          <a
-            href="#manifesto"
-            className="flex flex-col items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-400 rounded-md p-1"
-            aria-label="Scroll down to studio manifesto"
-          >
-            <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-sand-400">
-              Explore
-            </span>
-            <ChevronDown size={14} className="animate-bounce text-gold-400" />
-          </a>
         </div>
       </section>
     </>

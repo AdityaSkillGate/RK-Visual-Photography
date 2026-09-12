@@ -22,13 +22,15 @@ const config: Config = {
         gold: {
           100: "#FAF4EC",
           200: "#F0E4D0",
-          300: "#E2CCA8",
-          400: "#D4AF37",
-          500: "#C5A880", // Signature Antique Gold
-          600: "#A88B58",
-          700: "#826938",
-          800: "#5D4924",
-          muted: "#B88A3B", // V2 Restrained Muted Gold
+          300: "#E8BE63", // V2 Bright Gold Highlight
+          400: "#D4A84F", // V2 Signature Luxury Gold
+          500: "#D4A84F", // V2 Primary Luxury Gold
+          600: "#B88E36",
+          700: "#916F24",
+          800: "#6B5018",
+          bright: "#E8BE63", // V2 Radiant Gold Highlight
+          champagne: "#E8D3A5", // V2 Soft Champagne Gold
+          muted: "#C5A880", // V2 Restrained Antique Gold
         },
         ivory: {
           50: "#FCFBF9",
@@ -36,17 +38,17 @@ const config: Config = {
           200: "#EAE6DF", // Secondary editorial text
           300: "#DAD4C8",
           400: "#C5BFB2",
-          warm: "#F4F0E8", // V2 Signature Warm Ivory Surface
+          warm: "#F5F0E6", // V2 Signature Warm Ivory Surface
           paper: "#FAF8F5", // V2 Crisp Light Canvas
-          card: "#EDE8DD", // V2 Elevated Light Card
+          card: "#EFE9DC", // V2 Elevated Warm Ivory Card
           border: "#DDD5C5", // V2 Hairline Light Border
-          text: "#1C1B19", // V2 High-contrast text on light
-          textMuted: "#635E56",
+          text: "#1D1D1B", // V2 High-contrast text on light
+          textMuted: "#5C574F",
         },
         champagne: {
           100: "#FAF7F2",
           200: "#F4EFE6",
-          500: "#E7DDCA", // V2 Signature Champagne
+          500: "#E8D3A5", // V2 Signature Champagne
           700: "#C5B491",
         },
         taupe: {

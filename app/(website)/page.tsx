@@ -18,6 +18,7 @@ import RKImage from "@/components/ui/RKImage";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import { SECTION_ASSETS } from "@/lib/assets/studio-imagery";
+import FlagshipHero from "@/components/hero/FlagshipHero";
 import HeroExperience2 from "@/components/hero/HeroExperience2";
 import SectionReveal from "@/components/motion/SectionReveal";
 import TextReveal from "@/components/motion/TextReveal";
@@ -106,35 +107,41 @@ export default async function HomePage() {
     <>
       <JsonLd data={getWebSiteSchema()} />
       {/* ========================================================================= */}
-      {/* 1. HERO EXPERIENCE 2.0 — Integrated 10-Step Intro & Asynchronous Multi-Layer Hero */}
+      {/* 1. FLAGSHIP HERO — Brand Overture with Real Photography & Gold Monogram */}
       {/* ========================================================================= */}
-      <HeroExperience2
+      <FlagshipHero
         featuredProjects={featuredProjects}
         settings={settings}
       />
 
-      <div className="space-y-16 sm:space-y-28 lg:space-y-36 pb-20 sm:pb-24 mt-6 sm:mt-12 lg:mt-16">
-        {/* ========================================================================= */}
-        {/* 3. BRAND STATEMENT — Fine-Art Manifesto */}
-        {/* ========================================================================= */}
-        <section id="manifesto" className="relative px-6 text-center">
+      {/* ========================================================================= */}
+      {/* 2. STUDIO PHILOSOPHY — Fine-Art Manifesto (Warm Ivory Rhythm) */}
+      {/* ========================================================================= */}
+      <section
+        id="manifesto"
+        aria-label="Studio Philosophy"
+        className="relative py-20 sm:py-28 px-6 text-center bg-ivory-warm text-charcoal-soft border-y border-ivory-border/70"
+      >
         <Container size="narrow">
           <SectionReveal yOffset={25}>
             <div className="space-y-6">
-              <span className="text-[11px] uppercase tracking-widest text-gold-400/90 font-semibold block">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-gold-600 font-semibold block">
                 Studio Philosophy
               </span>
 
-              <TextClipReveal as="blockquote" className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] font-light text-ivory-100 leading-[1.3] tracking-wide">
+              <TextClipReveal
+                as="blockquote"
+                className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] font-light text-charcoal-soft leading-[1.3] tracking-wide"
+              >
                 &ldquo;We do not manufacture moments; we witness them. In the sacred stillness of dawn muhurthams, the ancient granite shadows of shore temples, and the quiet rustle of heirloom kanjivaram silk, we immortalize stories that endure across generations.&rdquo;
               </TextClipReveal>
 
               <div className="flex items-center justify-center gap-3 pt-4">
-                <div className="h-[1px] w-12 bg-gold-500/40" />
-                <span className="font-mono text-xs uppercase tracking-widest text-sand-400">
+                <div className="h-[1px] w-12 bg-gold-500/50" />
+                <span className="font-mono text-xs uppercase tracking-widest text-sand-600 font-medium">
                   RK Visual Studio
                 </span>
-                <div className="h-[1px] w-12 bg-gold-500/40" />
+                <div className="h-[1px] w-12 bg-gold-500/50" />
               </div>
             </div>
           </SectionReveal>
@@ -142,21 +149,42 @@ export default async function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* MARQUEE 1 — Editorial Disciplines & Craft (RTL) */}
+      {/* 3. CHAPTER 02 — THE RK SIGNATURE APERTURE & BRAND STORY */}
       {/* ========================================================================= */}
-      <EditorialMarquee
-        items={["Weddings", "Candid", "Pre-Weddings", "Portraits", "Events"]}
-        direction="rtl"
-        speed={28}
-        variant="primary"
-        separator="✦"
+      <HeroExperience2
+        featuredProjects={featuredProjects}
+        settings={settings}
       />
 
       {/* ========================================================================= */}
-      {/* 4. FEATURED STORIES — Asymmetrical Editorial Story Spreads */}
+      {/* 4. EXPERIENCE METRICS — Editorial Milestones & Track Record (Warm Ivory) */}
       {/* ========================================================================= */}
-      <section id="work" className="relative px-6">
-        <Container size="wide">
+      <ExperienceMetrics
+        metrics={experienceMetrics}
+        variant="light"
+        className="border-b border-ivory-border/70"
+      />
+
+      {/* ========================================================================= */}
+      {/* 5. EDITORIAL BODY SECTIONS (Dark Charcoal Flow) */}
+      {/* ========================================================================= */}
+      <div className="space-y-16 sm:space-y-24 lg:space-y-32 py-12 sm:py-16 bg-charcoal-deep">
+        {/* ========================================================================= */}
+        {/* MARQUEE 1 — Editorial Disciplines & Craft (RTL) */}
+        {/* ========================================================================= */}
+        <EditorialMarquee
+          items={["Weddings", "Candid", "Pre-Weddings", "Portraits", "Events"]}
+          direction="rtl"
+          speed={28}
+          variant="primary"
+          separator="✦"
+        />
+
+        {/* ========================================================================= */}
+        {/* 4. FEATURED STORIES — Asymmetrical Editorial Story Spreads */}
+        {/* ========================================================================= */}
+        <section id="work" className="relative px-6">
+          <Container size="wide">
           <SectionReveal yOffset={25}>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-bronze-border/60 pb-8 mb-16">
               <div className="space-y-2">
@@ -375,23 +403,23 @@ export default async function HomePage() {
           </SectionReveal>
         </Container>
       </section>
+      </div>
 
       {/* ========================================================================= */}
-      {/* 7.5 EXPERIENCE METRICS — Editorial Milestones & Track Record */}
+      {/* 8. TESTIMONIALS — Editorial Client Quotes (Warm Ivory Rhythm) */}
       {/* ========================================================================= */}
-      <ExperienceMetrics metrics={experienceMetrics} />
-
-      {/* ========================================================================= */}
-      {/* 8. TESTIMONIALS — Editorial Client Quotes */}
-      {/* ========================================================================= */}
-      <section id="testimonials" className="relative px-4 sm:px-6 lg:px-8">
+      <section
+        id="testimonials"
+        aria-label="Client Testimonials"
+        className="relative px-4 sm:px-6 lg:px-8 py-20 sm:py-28 bg-ivory-warm text-charcoal-soft border-y border-ivory-border/70"
+      >
         <Container size="default">
           <SectionReveal yOffset={25}>
             <div className="text-center space-y-2 mb-16">
-              <span className="text-overline uppercase tracking-widest text-gold-400">
+              <span className="text-overline uppercase tracking-widest text-gold-600 font-semibold block">
                 Words of Trust
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-light text-ivory-100">
+              <h2 className="font-display text-3xl sm:text-4xl font-light text-charcoal-soft">
                 Kind Words from Our Couples
               </h2>
             </div>
@@ -402,20 +430,20 @@ export default async function HomePage() {
               {testimonials.map((t) => (
                 <div
                   key={t.id}
-                  className="rounded-2xl border border-bronze-border/60 bg-charcoal-900/40 p-8 flex flex-col justify-between space-y-6 transition-all duration-300 hover:border-gold-500/30"
+                  className="rounded-2xl border border-ivory-border bg-ivory-card p-8 flex flex-col justify-between space-y-6 transition-all duration-300 hover:border-gold-500/40 hover:shadow-lg"
                 >
                   <div className="space-y-4">
-                    <Quote size={24} className="text-gold-400/60" />
-                    <p className="text-xs sm:text-sm text-sand-300 font-light italic leading-relaxed">
+                    <Quote size={24} className="text-gold-500" />
+                    <p className="text-xs sm:text-sm text-charcoal-soft font-light italic leading-relaxed">
                       &ldquo;{t.quote}&rdquo;
                     </p>
                   </div>
 
-                  <div className="border-t border-bronze-border/40 pt-4">
-                    <span className="font-display text-base font-normal text-ivory-100 block">
+                  <div className="border-t border-sand-300/60 pt-4">
+                    <span className="font-display text-base font-medium text-charcoal-900 block">
                       {t.client_name} {t.partner_name ? `& ${t.partner_name}` : ""}
                     </span>
-                    <span className="text-[11px] text-sand-500 font-light">
+                    <span className="text-[11px] text-sand-600 font-light">
                       {t.event_type} • {t.location}
                     </span>
                   </div>
@@ -427,19 +455,23 @@ export default async function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* MARQUEE 2 — Studio Heritage & Geographic Reach (LTR) */}
+      {/* 9. FINAL MOVEMENTS (Dark Charcoal Flow) */}
       {/* ========================================================================= */}
-      <EditorialMarquee
-        items={["RK Visual Photography", "Tamil Nadu", "India", "Worldwide"]}
-        direction="ltr"
-        speed={34}
-        variant="secondary"
-        separator="•"
-      />
+      <div className="space-y-16 sm:space-y-24 lg:space-y-32 py-12 sm:py-16 bg-charcoal-deep">
+        {/* ========================================================================= */}
+        {/* MARQUEE 2 — Studio Heritage & Geographic Reach (LTR) */}
+        {/* ========================================================================= */}
+        <EditorialMarquee
+          items={["RK Visual Photography", "Tamil Nadu", "India", "Worldwide"]}
+          direction="ltr"
+          speed={34}
+          variant="secondary"
+          separator="•"
+        />
 
-      {/* ========================================================================= */}
-      {/* 9. SOCIAL SECTION — Follow the Journey (Reels & Cinema Embeds) */}
-      {/* ========================================================================= */}
+        {/* ========================================================================= */}
+        {/* 9. SOCIAL SECTION — Follow the Journey (Reels & Cinema Embeds) */}
+        {/* ========================================================================= */}
       <FollowTheJourney posts={socialPosts} links={socialLinks} />
 
       {/* ========================================================================= */}
