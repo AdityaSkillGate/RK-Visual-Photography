@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
-import { ArrowRight, ChevronDown, Play, Sparkles, MapPin, Eye } from "lucide-react";
+import { ArrowRight, ChevronDown, Play, Sparkles } from "lucide-react";
 import MagneticButton from "@/components/motion/MagneticButton";
 import { PublicProject } from "@/lib/supabase/queries";
 import { SECTION_ASSETS } from "@/lib/assets/studio-imagery";
@@ -47,14 +47,64 @@ export default function FlagshipHero({
   const masterTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const ambientTweensRef = useRef<gsap.core.Tween[]>([]);
 
+  // Stable ref so finishIntro can call the carousel without a forward-reference
+  const startCinematicPanelCarouselRef = useRef<(() => void) | null>(null);
+
+  // Cinematic Panel Carousel refs
+  // "Flying clone" – the div that physically animates from right panel → mask → left panel
+  const flyingCloneRef = useRef<HTMLDivElement>(null);
+  const carouselTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isCarouselRunningRef = useRef(false);
+
+  // Image state for dynamic panel swaps
+  const [rightPanelSrc, setRightPanelSrc] = useState("");
+  const [leftPanelSrc, setLeftPanelSrc] = useState("");
+  const [maskPhotoSrc, setMaskPhotoSrc] = useState("");
+
+  // Label state for the panel badges
+  const [rightPanelLabel, setRightPanelLabel] = useState("Bridal • 01");
+  const [leftPanelLabel, setLeftPanelLabel] = useState("Pre-Wedding • 02");
+
   // Studio imagery selections (real photographs from public/assets/images)
   const backdropImage = "/assets/images/image.png"; // Sunset silhouette
-  const maskPhoto =
-    featuredProjects[0]?.cover_image_url || "/assets/images/image8.png"; // Chandelier stage proposal
-  const leftPanelImage =
-    featuredProjects[1]?.cover_image_url || "/assets/images/image9.png"; // Coastal crimson gown
-  const rightPanelImage =
-    featuredProjects[2]?.cover_image_url || "/assets/images/image6.png"; // Kanchipuram bridal moment
+
+  // Full image pool — project covers + fallback statics
+  const imagePoolRef = useRef<{ src: string; label: string }[]>([]);
+
+  // Populate image pool once on first render
+  useEffect(() => {
+    const projectImages = (featuredProjects || []).slice(0, 8).map((p, i) => ({
+      src: p.cover_image_url || `/assets/images/image${i + 1}.png`,
+      label: p.title ? p.title.slice(0, 18) : `Story • 0${i + 1}`,
+    }));
+    const staticImages = [
+      { src: "/assets/images/image8.png", label: "Chandelier • 01" },
+      { src: "/assets/images/image9.png", label: "Coastal • 02" },
+      { src: "/assets/images/image6.png", label: "Bridal • 03" },
+      { src: "/assets/images/image1.png", label: "Heritage • 04" },
+      { src: "/assets/images/image2.png", label: "Golden • 05" },
+      { src: "/assets/images/image3.png", label: "Portrait • 06" },
+      { src: "/assets/images/image4.png", label: "Ceremony • 07" },
+      { src: "/assets/images/image5.png", label: "Twilight • 08" },
+      { src: "/assets/images/image7.png", label: "Gardens • 09" },
+      { src: "/assets/images/image10.png", label: "Palace • 10" },
+    ];
+    // Merge: project images first, then fill with statics not already used
+    const usedSrcs = new Set(projectImages.map((p) => p.src));
+    const pool = [
+      ...projectImages,
+      ...staticImages.filter((s) => !usedSrcs.has(s.src)),
+    ];
+    imagePoolRef.current = pool.length >= 3 ? pool : [...staticImages];
+
+    // Set initial display values
+    const pool0 = imagePoolRef.current;
+    setMaskPhotoSrc(pool0[0]?.src || "/assets/images/image8.png");
+    setRightPanelSrc(pool0[1]?.src || "/assets/images/image6.png");
+    setLeftPanelSrc(pool0[2]?.src || "/assets/images/image9.png");
+    setRightPanelLabel(pool0[1]?.label || "Bridal • 01");
+    setLeftPanelLabel(pool0[2]?.label || "Pre-Wedding • 02");
+  }, [featuredProjects]);
 
   // Ambient Ken Burns slow floating drift on hero layers
   const startAmbientMotion = useCallback(() => {
@@ -177,7 +227,10 @@ export default function FlagshipHero({
       duration: 0.8,
       stagger: 0.08,
       ease: "power2.out",
-      onComplete: startAmbientMotion,
+      onComplete: () => {
+        startAmbientMotion();
+        startCinematicPanelCarouselRef.current?.();
+      },
     });
   }, [startAmbientMotion]);
 
@@ -341,11 +394,194 @@ export default function FlagshipHero({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [introActive, skipIntro]);
 
+  // =========================================================================
+  // CINEMATIC PANEL ORBIT CAROUSEL
+  // Right panel ──► scales up & flies to RK Mask center
+  //             ──► mask photo crossfades to new image
+  //             ──► panel shrinks down into left panel position
+  //             ──► old left panel disappears
+  //             ──► new image appears in right panel ──► repeat
+  // =========================================================================
+  const startCinematicPanelCarousel = useCallback(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    if (isCarouselRunningRef.current) return;
+    isCarouselRunningRef.current = true;
+
+    // Indices tracking which pool slot fills each position
+    let maskIdx = 0;
+    let rightIdx = 1;
+    let leftIdx = 2;
+
+    const runCycle = () => {
+      const pool = imagePoolRef.current;
+      if (!pool || pool.length < 3) return;
+      if (!heroPanelRightRef.current || !heroPanelLeftRef.current) return;
+      if (!heroCenterMaskRef.current || !heroMaskPhotoRef.current) return;
+      if (!flyingCloneRef.current) return;
+
+      const rightPanel = heroPanelRightRef.current;
+      const leftPanel = heroPanelLeftRef.current;
+      const centerMask = heroCenterMaskRef.current;
+      const maskPhotoEl = heroMaskPhotoRef.current;
+      const clone = flyingCloneRef.current;
+
+      // Live bounding rects
+      const rightRect = rightPanel.getBoundingClientRect();
+      const leftRect = leftPanel.getBoundingClientRect();
+      const maskRect = centerMask.getBoundingClientRect();
+
+      const rightCx = rightRect.left + rightRect.width / 2;
+      const rightCy = rightRect.top + rightRect.height / 2;
+      const maskCx = maskRect.left + maskRect.width / 2;
+      const maskCy = maskRect.top + maskRect.height / 2;
+      const leftCx = leftRect.left + leftRect.width / 2;
+      const leftCy = leftRect.top + leftRect.height / 2;
+
+      const cloneW = rightRect.width;
+      const cloneH = rightRect.height;
+      const scaleToMask = Math.max(maskRect.width / cloneW, maskRect.height / cloneH) * 1.08;
+      const scaleToLeft = leftRect.width / cloneW;
+
+      // Next image slot
+      const nextRightIdx = (leftIdx + 1) % pool.length;
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          // Advance pool cursors
+          maskIdx = rightIdx;
+          leftIdx = maskIdx;
+          rightIdx = nextRightIdx;
+          // Wait 5.2s before next orbit
+          carouselTimerRef.current = setTimeout(runCycle, 5200);
+        },
+      });
+
+      // ── PHASE 1: Set clone at right panel position ───────────────────────
+      gsap.set(clone, {
+        display: "block",
+        position: "fixed",
+        opacity: 1,
+        width: cloneW,
+        height: cloneH,
+        left: rightCx - cloneW / 2,
+        top: rightCy - cloneH / 2,
+        scale: 1,
+        borderRadius: "16px",
+        zIndex: 9995,
+        backgroundImage: `url(${pool[rightIdx].src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.85), 0 0 0 1.5px rgba(197,168,128,0.4)",
+      });
+
+      // Hide actual right panel during flight
+      tl.set(rightPanel, { opacity: 0 });
+
+      // ── PHASE 2: Right panel → Center mask (scale up, fly to RK mask) ────
+      tl.to(clone, {
+        left: maskCx - cloneW / 2,
+        top: maskCy - cloneH / 2,
+        scale: scaleToMask,
+        borderRadius: "28px",
+        boxShadow: "0 40px 120px rgba(0,0,0,0.9), 0 0 0 2px rgba(212,175,55,0.6)",
+        duration: 0.9,
+        ease: "power3.inOut",
+      });
+
+      // Brief hold at center (100ms pause)
+      tl.to({}, { duration: 0.1 });
+
+      // ── PHASE 3: Crossfade the RK mask photo ─────────────────────────────
+      tl.to(maskPhotoEl, {
+        opacity: 0,
+        duration: 0.28,
+        ease: "power2.in",
+        onComplete: () => {
+          const newSrc = pool[rightIdx].src;
+          if (heroMaskPhotoRef.current) {
+            heroMaskPhotoRef.current.style.backgroundImage = `url(${newSrc})`;
+          }
+          setMaskPhotoSrc(newSrc);
+        },
+      }, "-=0.15");
+
+      tl.to(maskPhotoEl, {
+        opacity: 1,
+        duration: 0.38,
+        ease: "power2.out",
+      });
+
+      // ── PHASE 4: Center → Left panel (shrink, fly to left position) ──────
+      tl.to(clone, {
+        left: leftCx - cloneW / 2,
+        top: leftCy - cloneH / 2,
+        scale: scaleToLeft,
+        borderRadius: "14px",
+        boxShadow: "0 16px 48px rgba(0,0,0,0.8), 0 0 0 1.5px rgba(197,168,128,0.3)",
+        duration: 0.8,
+        ease: "power3.inOut",
+        delay: 0.12,
+      });
+
+      // Fade out old left panel while clone moves in
+      tl.to(leftPanel, {
+        opacity: 0,
+        duration: 0.25,
+        ease: "power2.in",
+      }, "-=0.55");
+
+      // ── PHASE 5: Swap panel React state and reveal ────────────────────────
+      tl.add(() => {
+        setLeftPanelSrc(pool[rightIdx].src);
+        setLeftPanelLabel(pool[rightIdx].label);
+        setRightPanelSrc(pool[nextRightIdx].src);
+        setRightPanelLabel(pool[nextRightIdx].label);
+      });
+
+      tl.to(leftPanel, {
+        opacity: 1,
+        duration: 0.35,
+        ease: "power2.out",
+      });
+
+      tl.to(rightPanel, {
+        opacity: 1,
+        duration: 0.35,
+        ease: "power2.out",
+      }, "-=0.25");
+
+      // ── PHASE 6: Hide the flying clone ────────────────────────────────────
+      tl.to(clone, {
+        opacity: 0,
+        duration: 0.2,
+        ease: "power2.in",
+      }, "-=0.3");
+
+      tl.set(clone, { display: "none" });
+    };
+
+    // First orbit starts 2.2s after ambient motion
+    carouselTimerRef.current = setTimeout(runCycle, 2200);
+  }, []);
+
+  // Keep the carousel launcher ref up to date so finishIntro can safely call it
+  useEffect(() => {
+    startCinematicPanelCarouselRef.current = startCinematicPanelCarousel;
+  }, [startCinematicPanelCarousel]);
+
   // Clean up tweens on unmount
   useEffect(() => {
     return () => {
       ambientTweensRef.current.forEach((t) => t.kill());
       if (masterTimelineRef.current) masterTimelineRef.current.kill();
+      if (carouselTimerRef.current) clearTimeout(carouselTimerRef.current);
+      isCarouselRunningRef.current = false;
     };
   }, []);
 
@@ -399,7 +635,7 @@ export default function FlagshipHero({
             <div
               ref={introPhotoInsideRef}
               style={{
-                backgroundImage: `url(${maskPhoto})`,
+                backgroundImage: maskPhotoSrc ? `url(${maskPhotoSrc})` : "none",
                 backgroundSize: "cover",
                 backgroundPosition: "center 42%",
               }}
@@ -604,11 +840,11 @@ export default function FlagshipHero({
                   }}
                   className="relative w-full h-full overflow-hidden"
                 >
-                  {/* Moving photography inside RK letters */}
+                   {/* Moving photography inside RK letters */}
                   <div
                     ref={heroMaskPhotoRef}
                     style={{
-                      backgroundImage: `url(${maskPhoto})`,
+                      backgroundImage: maskPhotoSrc ? `url(${maskPhotoSrc})` : "none",
                       backgroundSize: "cover",
                       backgroundPosition: "center 42%",
                     }}
@@ -640,45 +876,61 @@ export default function FlagshipHero({
                 </div>
               </div>
 
-              {/* Layer 3A: Floating Left Editorial Panel (Coastal Crimson Gown) */}
+              {/* Layer 3A: Floating Left Editorial Panel — image cycles via carousel */}
               <div
                 ref={heroPanelLeftRef}
                 className="hidden sm:block absolute -bottom-6 -left-6 lg:-bottom-8 lg:-left-8 z-20 w-36 sm:w-44 lg:w-48 aspect-[3/4] overflow-hidden rounded-2xl border border-gold-500/30 bg-charcoal-950/95 p-1.5 shadow-2xl backdrop-blur-md"
               >
                 <div className="relative w-full h-full overflow-hidden rounded-xl">
-                  <Image
-                    src={leftPanelImage}
-                    alt="Coastal twilight pre-wedding narrative"
-                    fill
-                    sizes="(max-width: 768px) 150px, 200px"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
+                  {leftPanelSrc && (
+                    <Image
+                      src={leftPanelSrc}
+                      alt="Editorial fine-art panel — cycling story"
+                      fill
+                      sizes="(max-width: 768px) 150px, 200px"
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/90 via-transparent to-transparent" />
                   <div className="absolute bottom-2 left-2 right-2 text-[8.5px] font-mono uppercase tracking-widest text-gold-300">
-                    Pre-Wedding • 02
+                    {leftPanelLabel}
                   </div>
                 </div>
               </div>
 
-              {/* Layer 3B: Floating Right Editorial Panel (Kanchipuram Bridal Preparation) */}
+              {/* Layer 3B: Floating Right Editorial Panel — image cycles via carousel */}
               <div
                 ref={heroPanelRightRef}
                 className="hidden lg:block absolute -top-4 -right-4 z-20 w-36 lg:w-40 aspect-[3/4] overflow-hidden rounded-2xl border border-gold-500/30 bg-charcoal-950/95 p-1.5 shadow-2xl backdrop-blur-md"
               >
                 <div className="relative w-full h-full overflow-hidden rounded-xl">
-                  <Image
-                    src={rightPanelImage}
-                    alt="Heirloom Kanchipuram silk bridal moments"
-                    fill
-                    sizes="180px"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
+                  {rightPanelSrc && (
+                    <Image
+                      src={rightPanelSrc}
+                      alt="Editorial fine-art panel — cycling story"
+                      fill
+                      sizes="180px"
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/90 via-transparent to-transparent" />
                   <div className="absolute bottom-2 left-2 right-2 text-[8.5px] font-mono uppercase tracking-widest text-gold-300">
-                    Bridal • 01
+                    {rightPanelLabel}
                   </div>
                 </div>
               </div>
+
+              {/* Flying Clone — the GSAP-animated panel that orbits right → center → left */}
+              <div
+                ref={flyingCloneRef}
+                aria-hidden="true"
+                style={{
+                  display: "none",
+                  position: "fixed",
+                  pointerEvents: "none",
+                  willChange: "transform, opacity, left, top",
+                }}
+              />
             </div>
           </div>
         </div>
